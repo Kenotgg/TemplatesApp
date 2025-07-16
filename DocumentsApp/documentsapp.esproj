@@ -9,6 +9,9 @@
     <BuildOutputFolder>$(MSBuildProjectDirectory)\dist</BuildOutputFolder>
   </PropertyGroup>
   <ItemGroup>
+    <Folder Include="src\pages\documents\ui\" />
+    <Folder Include="src\pages\profile\ui\" />
+    <Folder Include="src\widgets\" />
     <Folder Include="UnstableFolder\" />
   </ItemGroup>
 </Project>
