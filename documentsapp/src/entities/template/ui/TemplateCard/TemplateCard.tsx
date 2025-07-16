@@ -1,4 +1,4 @@
-export default function PageCard() {
+export default function TemplateCard() {
     return (
         <a>PageCard</a>
     );

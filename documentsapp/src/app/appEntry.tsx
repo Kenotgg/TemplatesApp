@@ -1,10 +1,12 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import BaseLayout from './layouts/BaseLayout'
+import  PageCard  from '@/pages/main/ui/Page'
+import BaseLayout from '@/app/layouts/BaseLayout';
 
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
-        <App />
+        <PageCard></PageCard>
+        <BaseLayout></BaseLayout>
     </StrictMode>,
 )
