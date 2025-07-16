@@ -13,6 +13,7 @@
     <TypeScriptConfiguration Remove="UnstableFolder\**" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="public\" />
     <Folder Include="src\features\theme\" />
     <Folder Include="src\features\pagination\" />
     <Folder Include="src\pages\documents\ui\" />
