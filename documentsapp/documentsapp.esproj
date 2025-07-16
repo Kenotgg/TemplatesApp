@@ -9,6 +9,15 @@
     <BuildOutputFolder>$(MSBuildProjectDirectory)\dist</BuildOutputFolder>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="UnstableFolder\" />
+    <None Remove="UnstableFolder\**" />
+    <TypeScriptConfiguration Remove="UnstableFolder\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="public\" />
+    <Folder Include="src\features\theme\" />
+    <Folder Include="src\features\pagination\" />
+    <Folder Include="src\pages\documents\ui\" />
+    <Folder Include="src\pages\profile\ui\" />
+    <Folder Include="src\widgets\" />
   </ItemGroup>
 </Project>
