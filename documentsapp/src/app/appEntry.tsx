@@ -1,12 +1,14 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+import { Provider } from 'react-redux';
+import App from '@/app/App';
+import { store } from '@/app/appStore';
 import './index.css'
-import  PageCard  from '@/pages/main/ui/Page'
-import BaseLayout from '@/app/layouts/BaseLayout';
 
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
-        <PageCard></PageCard>
-        <BaseLayout></BaseLayout>
+        <Provider store={store}>
+            <App></App>
+        </Provider>
     </StrictMode>,
 )
