@@ -1,45 +1,108 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { useGetTemplatesQuery } from '@/entities/template/api/templatesApi';
 import Loading from '@/shared/ui/spinner/Loading';
 import { TemplatesList } from '@/features/templatesList/ui/templatesList';
-
+import { Heading } from '@chakra-ui/react';
+import useDebounce from '@/shared/lib/hooks/useDebounce'
+import { useSearchParams } from 'react-router-dom'
+import { TemplateFilters } from '@/features/templatesList/ui/templateFilters';
 const TemplatesPage: React.FC = () => {
     const { data: templates, isLoading, isError, error } = useGetTemplatesQuery();
-    
-    const [statusFilter, setStatusFilter] = useState<'draft' | 'published' | 'all'>('all');
-    const [searchQuery, setSearchQuery] = useState('');
 
+    const [statusFilter, setStatusFilter] = useState<'черновик' | 'опубликован' | 'all'>('all');
+    const [inputValue, setInputValue] = useState('');
+    const debouncedSearchQuery = useDebounce(inputValue, 500);
+    const [dateFilter, setDateFilter] = useState<string | null>(null);
+
+    const currentFilters = {
+        status: statusFilter,
+        query: debouncedSearchQuery,
+        date: dateFilter,
+    }
+
+    const [searchParams, setSearchParams] = useSearchParams();
+
+
+    // -- Логика синхронизации с URL --
+    useEffect(() => {
+        if (isLoading) return;
+
+        const status = searchParams.get('status') || 'all';
+        const query = searchParams.get('query') || '';
+        const date = searchParams.get('date'); // Читаем дату из URL
+
+        setStatusFilter(status as 'all' | 'черновик' | 'опубликован');
+        setInputValue(query);
+        setDateFilter(date || null); // Устанавливаем dateFilter
+    }, [searchParams, isLoading]);
+
+    //Обновление URL при изменении фильтров
+    useEffect(() => {
+        const params = new URLSearchParams();
+        if (statusFilter && statusFilter !== 'all') {
+            params.set('status', statusFilter);
+        }
+        if(dateFilter){
+            params.set('date', dateFilter);
+        }
+        if (debouncedSearchQuery) {
+            params.set('query', debouncedSearchQuery);
+        }
+        setSearchParams(params);
+
+    }, [statusFilter, debouncedSearchQuery, dateFilter, setSearchParams]);
+
+    //Фильтрация шаблонов
     const filteredTemplates = useMemo(() => {
         if (!templates) return [];
 
         let result = [...templates];
-        if (statusFilter !== 'all') {
-            result = result.filter(template => template.status === statusFilter);
+
+        if (currentFilters.status !== 'all') {
+            result = result.filter(template => template.status === currentFilters.status);
         }
 
-        if (searchQuery) {
+        if (currentFilters.query) {
+            result = result.filter(template =>
+                template.name.toLowerCase().includes(currentFilters.query.toLowerCase()))
+        }
+
+        if(currentFilters.date){
+            const filterDate = new Date(currentFilters.date);
             result = result.filter(template => {
-                template.name.toLowerCase().includes(searchQuery.toLowerCase());
+                const templateDate = new Date(template.createdAt);
+                return(
+                    templateDate.getFullYear() === filterDate.getFullYear() &&
+                    templateDate.getMonth() === filterDate.getMonth() &&
+                    templateDate.getDate() === filterDate.getDate() 
+                );
             });
         }
 
         return result;
-    }, [templates, statusFilter, searchQuery]);
+    }, [templates, currentFilters]);
 
     if (isLoading) {
         return <Loading />
     }
+    
     if (isError && error) {
         return <div>Error when try to loading templates: {error.toString()}</div>
     }
 
     return (
         <div>
-            <h1>TemplatesList</h1>
-            <p>Filters:</p>
-            <div>
-                <TemplatesList templates={filteredTemplates}></TemplatesList>
-            </div>
+            <Heading marginBottom={5}>TemplatesList</Heading>
+            <TemplateFilters
+                statusFilter={statusFilter}
+                onStatusFilterChange={setStatusFilter}
+                searchQuery={inputValue}
+                onSearchQueryChange={setInputValue}
+                dateFilter={dateFilter}
+                onDateFilterChange={setDateFilter}
+            >
+            </TemplateFilters>
+            <TemplatesList templates={filteredTemplates}></TemplatesList>
         </div>
     )
 }

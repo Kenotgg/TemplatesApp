@@ -2,7 +2,7 @@ export interface ITemplate {
     id: string;
     name: string;
     description: string;
-    status: 'draft' | 'published';
+    status: 'черновик' | 'опубликован';
     createdAt: string;
     updatedAt: string;
     author: string;
