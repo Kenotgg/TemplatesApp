@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import type { ITemplate } from "@/entities/template/model/types";
 import { Avatar, Box, Button, Card, CardFooter, CardHeader, Flex, Heading, Stack, Stat, StatLabel, Text } from "@chakra-ui/react";
 import { truncateText } from "@/shared/lib/utils/trancuateText";
@@ -58,6 +59,7 @@ export const TemplateCard: React.FC<TemplateCardProps> = React.memo(({
                     </Flex>
                 </CardFooter>
             </Card.Root>
+            <Link to={`/template/${template.id}`}>Посмотреть детали</Link>
         </Box>
 
     )
