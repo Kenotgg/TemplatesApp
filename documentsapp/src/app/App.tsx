@@ -6,8 +6,8 @@ import PageNotFoundPage from '@/shared/ui/pageNotFound/pageNotFoundPage';
 import { Box } from '@chakra-ui/react';
 export default function App() {
     return (
-        <Box minHeight={500}>
-            <Box width={'full'}>
+        <Box minH={500}>
+            <Box marginTop={0} width={'full'}>
                 <Link style={{marginRight:5}} to='/templates'>Главная</Link>
                 <Link style={{marginRight:5}} to='/profile'>Профиль</Link>
                 <Link style={{marginRight:5}} to='/profile'>Войти</Link>

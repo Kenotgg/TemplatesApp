@@ -24,17 +24,17 @@ const TemplatesPage: React.FC = () => {
 
 
     // -- Логика синхронизации с URL --
-    useEffect(() => {
-        if (isLoading) return;
+    // useEffect(() => {
+    //     if (isLoading) return;
 
-        const status = searchParams.get('status') || 'all';
-        const query = searchParams.get('query') || '';
-        const date = searchParams.get('date'); // Читаем дату из URL
+    //     const status = searchParams.get('status') || 'all';
+    //     const query = searchParams.get('query') || '';
+    //     const date = searchParams.get('date'); // Читаем дату из URL
 
-        setStatusFilter(status as 'all' | 'черновик' | 'опубликован');
-        setInputValue(query);
-        setDateFilter(date || null); // Устанавливаем dateFilter
-    }, [searchParams, isLoading]);
+    //     setStatusFilter(status as 'all' | 'черновик' | 'опубликован');
+    //     setInputValue(query);
+    //     setDateFilter(date || null); // Устанавливаем dateFilter
+    // }, [searchParams, isLoading]);
 
     //Обновление URL при изменении фильтров
     useEffect(() => {
