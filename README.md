@@ -9,3 +9,4 @@ SPA Веб приложение написанное на React + TypeScript с 
 - Установить все зависимости npm i
 - Запустить через команду npm run dev
 - Перейти по появившемуся адресу веб приложения
+<img width="349" height="134" alt="Снимок экрана 2025-07-19 003802" src="https://github.com/user-attachments/assets/51d0367b-703b-4727-aa55-9e0ae52745d8" />
