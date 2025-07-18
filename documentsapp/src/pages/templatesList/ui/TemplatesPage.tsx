@@ -2,10 +2,10 @@ import React, { useMemo, useState } from 'react';
 import { useGetTemplatesQuery } from '@/entities/template/api/templatesApi';
 import Loading from '@/shared/ui/spinner/Loading';
 import { TemplatesList } from '@/features/templatesList/ui/templatesList';
-
+import { Heading } from '@chakra-ui/react';
 const TemplatesPage: React.FC = () => {
     const { data: templates, isLoading, isError, error } = useGetTemplatesQuery();
-    
+
     const [statusFilter, setStatusFilter] = useState<'draft' | 'published' | 'all'>('all');
     const [searchQuery, setSearchQuery] = useState('');
 
@@ -35,11 +35,8 @@ const TemplatesPage: React.FC = () => {
 
     return (
         <div>
-            <h1>TemplatesList</h1>
-            <p>Filters:</p>
-            <div>
-                <TemplatesList templates={filteredTemplates}></TemplatesList>
-            </div>
+            <Heading marginBottom={5}>TemplatesList</Heading>
+            <TemplatesList templates={filteredTemplates}></TemplatesList>
         </div>
     )
 }
