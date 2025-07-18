@@ -25,10 +25,8 @@ const TemplateDetailsPage: React.FC = () => {
     <div>
       <h1>{template.name}</h1>
       <p>{template.description}</p>
-      {/* Отобразите другие детали шаблона */}
       <p>Status: {template.status}</p>
       <p>Author: {template.author}</p>
-      {/* ... */}
     </div>
   );
 };
