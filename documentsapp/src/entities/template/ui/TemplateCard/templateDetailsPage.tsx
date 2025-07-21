@@ -1,13 +1,43 @@
 // src/entities/template/ui/TemplateDetailsPage.tsx
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useGetTemplateByIdQuery } from '@/entities/template/api/templatesApi'; // Используйте ваш RTK Query endpoint
-import Loading from '@/shared/ui/spinner/Loading'
+import { useGetTemplateByIdQuery } from '@/entities/template/api/templatesApi';
+import Loading from '@/shared/ui/spinner/Loading';
+import TemplateEditForm from '@/features/template/ui/templateEditForm/templateEditForm';
+import Modal from '@/shared/ui/modal/ui/modal';
+import type { ITemplate } from '../../model/types';
 
 const TemplateDetailsPage: React.FC = () => {
-  const { id } = useParams<{ id: string }>(); // Получаем ID из URL
+  const { id } = useParams<{ id: string }>();
+  const { data: template, isLoading, isError, error } = useGetTemplateByIdQuery(id!);
 
-  const { data: template, isLoading, isError, error } = useGetTemplateByIdQuery(id!); // Загружаем данные о шаблоне
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [updatedTemplate, setUpdatedTemplate] = useState<ITemplate | undefined>(undefined); // Инициализируем undefined
+
+  useEffect(() => {
+    if (template) {
+      setUpdatedTemplate(template); // Обновляем, когда данные загружены
+    }
+  }, [template]);
+
+  const handleOpenModal = () => {
+    console.log("Try to open modal template is ", template);
+    if(updatedTemplate){
+      setIsModalOpen(true);
+    } else {
+      console.warn("Cannot open modal: updatedTemplate is undefined");
+    }
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleSaveTemplate = (updatedTemplateData: { id: string; name: string; description: string, status: 'черновик' | 'опубликован', createdAt: string, updatedAt: string, author: string, tags: string[] }) => {
+    console.log('Обновили данные в темплейте', updatedTemplateData);
+    setUpdatedTemplate(updatedTemplateData);
+    handleCloseModal();
+  };
 
   if (isLoading) {
     return <Loading />;
@@ -27,6 +57,14 @@ const TemplateDetailsPage: React.FC = () => {
       <p>{template.description}</p>
       <p>Status: {template.status}</p>
       <p>Author: {template.author}</p>
+      <button onClick={handleOpenModal}>Изменить</button>
+
+      {/* Условный рендеринг Modal */}
+      {updatedTemplate && (
+        <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+          <TemplateEditForm template={updatedTemplate as ITemplate} onSave={handleSaveTemplate} onCancel={handleCloseModal} />
+        </Modal>
+      )}
     </div>
   );
 };

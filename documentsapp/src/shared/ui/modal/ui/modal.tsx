@@ -1,0 +1,58 @@
+import React, { useState, useEffect, useRef } from 'react';
+import ReactDOM from 'react-dom';
+import styles from './Modal.module.scss';
+interface ModalProps {
+    isOpen: boolean;
+    onClose: () => void;
+    children: React.ReactNode;
+}
+
+const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
+    const [modalRoot, setModalRoot] = useState<HTMLElement | null>(null);
+    const modalRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const root = document.getElementById('modal-root');
+        if (root) {
+            setModalRoot(root);
+        } else {
+            const newRoot = document.createElement('div');
+            newRoot.id = 'modal-root';
+            document.body.appendChild(newRoot);
+        }
+
+        const handleClickOutside = (event: MouseEvent) => {
+            if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+                onClose();
+            }
+        };
+
+        
+        if (isOpen) {
+            document.addEventListener('mousedown', handleClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside)
+        };
+
+    }, [isOpen, onClose]);
+
+    if(!isOpen || !modalRoot){
+        return null;
+    }
+
+    return ReactDOM.createPortal(
+            <div className={styles.modalOverlay}>
+                <div className={styles.modalContent} ref={modalRef}>
+                    <button className={styles.closeButton} onClick={onClose}>
+                        &times;
+                    </button>
+                    {children}
+                </div>
+            </div>,
+            modalRoot
+    );
+};
+
+export default Modal;

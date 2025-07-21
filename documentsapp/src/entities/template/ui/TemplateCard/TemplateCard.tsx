@@ -55,11 +55,12 @@ export const TemplateCard: React.FC<TemplateCardProps> = React.memo(({
                                     {onDelete && <Button onClick={() => onDelete(template.id)}>Delete</Button>}
                                 </div>
                             )}
+                             <Link to={`/template/${template.id}`}>Посмотреть детали</Link>
                         </Stack>
                     </Flex>
                 </CardFooter>
             </Card.Root>
-            <Link to={`/template/${template.id}`}>Посмотреть детали</Link>
+           
         </Box>
 
     )
