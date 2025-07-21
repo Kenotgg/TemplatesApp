@@ -1,5 +1,5 @@
 import { Provider as ReduxProvider } from 'react-redux';
-import { Provider as ChakraProvider } from '@/shared/ui/ChakraUI/ui/provider'
+import { Provider as ChakraProvider } from '@/app/providers/ui/provider'
 import { BrowserRouter } from 'react-router-dom';
 import { createRoot } from 'react-dom/client'
 import App from '@/app/App';

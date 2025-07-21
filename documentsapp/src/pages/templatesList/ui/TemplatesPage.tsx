@@ -22,20 +22,6 @@ const TemplatesPage: React.FC = () => {
 
     const [searchParams, setSearchParams] = useSearchParams();
 
-
-    // -- Логика синхронизации с URL --
-    // useEffect(() => {
-    //     if (isLoading) return;
-
-    //     const status = searchParams.get('status') || 'all';
-    //     const query = searchParams.get('query') || '';
-    //     const date = searchParams.get('date'); // Читаем дату из URL
-
-    //     setStatusFilter(status as 'all' | 'черновик' | 'опубликован');
-    //     setInputValue(query);
-    //     setDateFilter(date || null); // Устанавливаем dateFilter
-    // }, [searchParams, isLoading]);
-
     //Обновление URL при изменении фильтров
     useEffect(() => {
         const params = new URLSearchParams();
