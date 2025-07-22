@@ -1,13 +1,12 @@
-// src/entities/template/ui/TemplateDetailsPage.tsx
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useGetTemplateByIdQuery } from '@/pages/templatesPage/api/templatesApi';
 import Loading from '@/shared/ui/spinner/Loading';
 import TemplateEditForm from '@/features/editTemplate/ui/templateEditForm/templateEditForm';
 import Modal from '@/shared/ui/modal/ui/modal';
-import type { ITemplate } from '../../model/types';
+import type { ITemplate } from '../model/types';
 
-const TemplateDetailsPage: React.FC = () => {
+const TemplateDetailsInfo: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { data: template, isLoading, isError, error } = useGetTemplateByIdQuery(id!);
 
@@ -22,7 +21,7 @@ const TemplateDetailsPage: React.FC = () => {
 
   const handleOpenModal = () => {
     console.log("Try to open modal template is ", template);
-    if(updatedTemplate){
+    if (updatedTemplate) {
       setIsModalOpen(true);
     } else {
       console.warn("Cannot open modal: updatedTemplate is undefined");
@@ -68,5 +67,5 @@ const TemplateDetailsPage: React.FC = () => {
     </div>
   );
 };
+export default TemplateDetailsInfo;
 
-export default TemplateDetailsPage;

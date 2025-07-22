@@ -3,16 +3,16 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useAppDispatch } from '@/app/hooks/hooks';
 import { loginSuccess as login, profileUpdate } from '@/app/auth/authSlice'; // <- Correct action
-import type { User } from '@/entities/user/model/user';
+import type { IUser } from '@/entities/user/model/user';
 import styles from './Modal.module.scss';
 
 interface EditProfileFormProps {
-    user: User | null;
+    user: IUser | null;
     onClose: () => void;
 }
 
 const EditProfileForm: React.FC<EditProfileFormProps> = ({ user, onClose }) => {
-    const { register, handleSubmit, formState: { errors }, setValue } = useForm<User>({
+    const { register, handleSubmit, formState: { errors }, setValue } = useForm<IUser>({
         defaultValues: {
             id: user?.id || '',
             name: user?.name || '',
@@ -30,7 +30,7 @@ const EditProfileForm: React.FC<EditProfileFormProps> = ({ user, onClose }) => {
         }
     }, [user, setValue]);
 
-    const onSubmit = (data: Omit<User, 'id'>) => {
+    const onSubmit = (data: Omit<IUser, 'id'>) => {
         if (!user) return;
 
         const updatedUser = {

@@ -6,6 +6,7 @@ import { Heading } from '@chakra-ui/react';
 import useDebounce from '@/app/hooks/useDebounce'
 import { useSearchParams } from 'react-router-dom'
 import { TemplateFilters } from '@/features/templatesList/ui/templateFilters';
+
 const TemplatesPage: React.FC = () => {
     const { data: templates, isLoading, isError, error } = useGetTemplatesQuery();
 

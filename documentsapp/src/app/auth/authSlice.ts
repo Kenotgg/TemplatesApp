@@ -1,13 +1,13 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import type { User } from "@/entities/user/model/user";
+import type { IUser } from "@/entities/user/model/user";
 import { useEffect } from "react";
 
 interface AuthState {
-    user: User | null;
+    user: IUser | null;
     isLoading: boolean;
     error: string | null;
 }
-const getLocalStorage = (): User | null => {
+const getLocalStorage = (): IUser | null => {
     try {
         const storedUser = localStorage.getItem('user');
         return storedUser ? JSON.parse(storedUser) : null;
@@ -32,7 +32,7 @@ const authSlice = createSlice({
             state.isLoading = true;
             state.error = null;
         },
-        loginSuccess(state, action: PayloadAction<User>) {
+        loginSuccess(state, action: PayloadAction<IUser>) {
             state.user = action.payload;
             state.isLoading = false;
             state.error = null;
@@ -45,7 +45,7 @@ const authSlice = createSlice({
         logout(state) {
             state.user = null;
         },
-        profileUpdate(state, action: PayloadAction<User>) {
+        profileUpdate(state, action: PayloadAction<IUser>) {
             state.user = getLocalStorage();
             state.isLoading = false;
             state.error = null;

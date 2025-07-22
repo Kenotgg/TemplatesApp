@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import type { ITemplate } from "@/entities/template/model/types";
 import { Avatar, Box, Button, Card, CardFooter, CardHeader, Flex, Heading, Stack, Stat, StatLabel, Text } from "@chakra-ui/react";
 import { truncateText } from "@/shared/lib/helpers/trancuateText";
+
+
 interface TemplateCardProps {
     template: ITemplate;
     onEdit?: (id: string) => void;

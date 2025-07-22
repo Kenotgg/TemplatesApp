@@ -1,16 +1,13 @@
-import React, { Suspense, useEffect } from 'react';
-import '@/app/app.css';
-import { Routes, Route, Link, Navigate, useLocation } from 'react-router-dom';
-import { Box, Button } from '@chakra-ui/react';
+import React, { Suspense } from 'react';
+import '@/app/styles/app.css';
+import { Routes, Route, Link} from 'react-router-dom';
+import { Box } from '@chakra-ui/react';
 import { useSelector } from 'react-redux';
 import type { RootState } from '@/app/appStore';
 import Loading from '@/shared/ui/spinner/Loading';
 import { ProtectedRoute } from '@/shared/lib/helpers/protectedRoute';
-import { useDispatch } from 'react-redux';
-import { loginSuccess, profileUpdate } from '@/app/auth/authSlice';
 
-//Lazy loading
-const TemplateDetailsPage = React.lazy(() => import('@/entities/template/ui/TemplateCard/templateDetailsPage'))
+const TemplateDetailsInfo = React.lazy(() => import('@/entities/template/ui/templateDetailsInfo'))
 const LoginForm = React.lazy(() => import('@/pages/login/ui/loginForm'))
 const PageNotFoundPage = React.lazy(() => import('@/shared/ui/pageNotFound/pageNotFoundPage'))
 const ProfilePage = React.lazy(() => import('@/entities/user/ui/profilePage'))
@@ -18,23 +15,8 @@ const TemplatesPage = React.lazy(() => import('@/pages/templatesPage/ui/template
 
 export default function App() {
     const user = useSelector((state: RootState) => state.auth.user);
-    const dispatch = useDispatch();
-
-    
-    useEffect(() => {
-        const storedUser = localStorage.getItem('user');
-        console.log('storedUser:', storedUser)
-        if (storedUser) {
-            
-            dispatch(profileUpdate(JSON.parse(storedUser))); // Восстанавливаем состояние из localStorage
-        }
-    }, [dispatch]);
-
-
-
     return (
         <Box minH={500}>
-            {/* <Button onClick={() => {console.log(handleGetUser())}}></Button> */}
             <Box marginTop={0} width={'full'}>
                 <Link style={{ marginRight: 5 }} to='/templates'>Главная</Link>
                 {user ? (
@@ -49,7 +31,7 @@ export default function App() {
                     <Route path='/login' element={<LoginForm />} />
                     <Route path='/profile' element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
                     <Route path='/templates' element={<ProtectedRoute><TemplatesPage /></ProtectedRoute>} />
-                    <Route path='/template/:id' element={<ProtectedRoute><TemplateDetailsPage /></ProtectedRoute>} />
+                    <Route path='/template/:id' element={<ProtectedRoute><TemplateDetailsInfo /></ProtectedRoute>} />
                     <Route path='*' element={<ProtectedRoute><PageNotFoundPage /></ProtectedRoute>} />
                 </Routes>
             </Suspense>

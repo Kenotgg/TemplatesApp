@@ -1,4 +1,3 @@
-// src/entities/template/index.tsx
-export * from './model/types'; // Export типов
-export * from './ui/TemplateCard/templateCard'; // Export компоненты (если нужно)
-export * from '../../pages/templatesPage/api/templatesApi'; // Export API (если нужно)
+export type { ITemplate } from './model/types';
+export { TemplateCard } from './ui/templateCard';
+export { default as TemplateDetailsInfo } from './ui/templateDetailsInfo';

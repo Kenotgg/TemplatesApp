@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import type { TypedUseSelectorHook } from "react-redux";
 import type { RootState, AppDispatch } from "@/app/appStore";
-import type { User } from "@/entities/user/model/user";
+import type { IUser } from "@/entities/user/model/user";
 interface UseUserData {
-    user: User | null;
+    user: IUser | null;
 }
 export const useAppDispatch: () => AppDispatch = useDispatch;
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
