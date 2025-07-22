@@ -13,6 +13,7 @@ const initialState: AuthState = {
     error: null,
 };
 
+const storedUser = localStorage.getItem('user');
 const authSlice = createSlice({
     name: 'auth',
     initialState,
