@@ -8,12 +8,6 @@ import Loading from '@/shared/ui/spinner/Loading';
 import { ProtectedRoute } from '@/shared/lib/components/protectedRoute';
 import { useDispatch } from 'react-redux';
 import { loginSuccess, profileUpdate } from '@/pages/login/model/authSlice';
-//Default loading
-// import LoginForm from '@/pages/login/ui/loginForm';
-// import TemplatesPage from '@/pages/templatesList/ui/templatesPage';
-// import PageNotFoundPage from '@/shared/ui/pageNotFound/pageNotFoundPage';
-// import ProfilePage from '@/entities/user/ui/profilePage';
-
 
 //Lazy loading
 const TemplateDetailsPage = React.lazy(() => import('@/entities/template/ui/TemplateCard/templateDetailsPage'))
