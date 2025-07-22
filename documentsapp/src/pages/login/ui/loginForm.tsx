@@ -18,17 +18,11 @@ const LoginForm: React.FC = () => {
 
     const onSubmit = async (data: LoginFormValues) => {
         try {
-            // Отправляем запрос в API (теперь без всяких проверок здесь)
             const result = await login({ email: data.email, password: data.password }).unwrap();
-
-            // Диспатчим action loginSuccess с данными пользователя
             dispatch(loginSuccess(result));
-
-            navigate('/profile'); // Перенаправляем при успешном входе
+            navigate('/profile');
         } catch (err: any) {
-            // Обработка ошибок
             console.error('Login failed', err);
-            // Тут лучше добавить отображение ошибки в UI, например, через setError
         }
     };
 
