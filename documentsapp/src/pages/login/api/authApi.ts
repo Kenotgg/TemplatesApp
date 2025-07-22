@@ -16,10 +16,6 @@ const fakeLogin = async (credentials: { email: string; password: string }): Prom
                 credentials.email === FAKE_USER.email &&
                 credentials.password === FAKE_USER.password
             ) {
-                console.log("credentials.email:", credentials.email);
-                console.log("credentials.password:", credentials.password);
-                console.log("FAKE_USER.email:", FAKE_USER.email);
-                console.log("FAKE_USER.password:", FAKE_USER.password);
                 resolve({
                     id: FAKE_USER.id,
                     email: FAKE_USER.email,

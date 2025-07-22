@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/app/hooks/hooks';
 import { loginStart, loginSuccess, loginFailure, logout } from './authSlice';
-import { login } from '../api/authApi';
+import { login } from '@/pages/login/api/authApi';
 import type { User } from '@/entities/user/model/user';
 
 export const useAuth = () => {
