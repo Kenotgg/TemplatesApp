@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useLoginMutation } from '@/pages/login//api/authApi';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { loginSuccess } from '@/pages/login/model/authSlice';
+import { loginSuccess } from '@/app/auth/authSlice';
 
 interface LoginFormValues {
     email: string;

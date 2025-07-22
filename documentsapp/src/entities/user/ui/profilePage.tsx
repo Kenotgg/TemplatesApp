@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useAppDispatch } from '@/app/hooks/hooks';
 import { useUserData } from '@/app/hooks/hooks';
-import { logout } from '@/pages/login/model/authSlice';
-import EditProfileForm from '@/features/profile/ui/editProfileForm';
+import { logout } from '@/app/auth/authSlice';
+import EditProfileForm from '@/features/editProfile/ui/editProfileForm';
 import Modal from '@/shared/ui/modal/ui/modal';
 
 

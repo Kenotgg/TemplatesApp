@@ -1,9 +1,9 @@
 // src/entities/template/ui/TemplateDetailsPage.tsx
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useGetTemplateByIdQuery } from '@/entities/template/api/templatesApi';
+import { useGetTemplateByIdQuery } from '@/pages/templatesPage/api/templatesApi';
 import Loading from '@/shared/ui/spinner/Loading';
-import TemplateEditForm from '@/features/template/ui/templateEditForm/templateEditForm';
+import TemplateEditForm from '@/features/editTemplate/ui/templateEditForm/templateEditForm';
 import Modal from '@/shared/ui/modal/ui/modal';
 import type { ITemplate } from '../../model/types';
 

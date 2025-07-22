@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/app/hooks/hooks';
-import { loginStart, loginSuccess, loginFailure, logout } from './authSlice';
+import { loginStart, loginSuccess, loginFailure, logout } from '../auth/authSlice';
 import { login } from '@/pages/login/api/authApi';
 import type { User } from '@/entities/user/model/user';
 

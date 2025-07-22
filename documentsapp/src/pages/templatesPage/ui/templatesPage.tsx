@@ -1,9 +1,9 @@
 import React, { useMemo, useState, useEffect } from 'react';
-import { useGetTemplatesQuery } from '@/entities/template/api/templatesApi';
+import { useGetTemplatesQuery } from '@/pages/templatesPage/api/templatesApi';
 import Loading from '@/shared/ui/spinner/Loading';
 import { TemplatesList } from '@/features/templatesList/ui/templatesList';
 import { Heading } from '@chakra-ui/react';
-import useDebounce from '@/shared/lib/hooks/useDebounce'
+import useDebounce from '@/app/hooks/useDebounce'
 import { useSearchParams } from 'react-router-dom'
 import { TemplateFilters } from '@/features/templatesList/ui/templateFilters';
 const TemplatesPage: React.FC = () => {

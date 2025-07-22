@@ -2,7 +2,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useAppDispatch } from '@/app/hooks/hooks';
-import { loginSuccess as login, profileUpdate } from '@/pages/login/model/authSlice'; // <- Correct action
+import { loginSuccess as login, profileUpdate } from '@/app/auth/authSlice'; // <- Correct action
 import type { User } from '@/entities/user/model/user';
 import styles from './Modal.module.scss';
 

@@ -5,16 +5,16 @@ import { Box, Button } from '@chakra-ui/react';
 import { useSelector } from 'react-redux';
 import type { RootState } from '@/app/appStore';
 import Loading from '@/shared/ui/spinner/Loading';
-import { ProtectedRoute } from '@/shared/lib/components/protectedRoute';
+import { ProtectedRoute } from '@/shared/lib/helpers/protectedRoute';
 import { useDispatch } from 'react-redux';
-import { loginSuccess, profileUpdate } from '@/pages/login/model/authSlice';
+import { loginSuccess, profileUpdate } from '@/app/auth/authSlice';
 
 //Lazy loading
 const TemplateDetailsPage = React.lazy(() => import('@/entities/template/ui/TemplateCard/templateDetailsPage'))
 const LoginForm = React.lazy(() => import('@/pages/login/ui/loginForm'))
 const PageNotFoundPage = React.lazy(() => import('@/shared/ui/pageNotFound/pageNotFoundPage'))
 const ProfilePage = React.lazy(() => import('@/entities/user/ui/profilePage'))
-const TemplatesPage = React.lazy(() => import('@/pages/templatesList/ui/templatesPage'))
+const TemplatesPage = React.lazy(() => import('@/pages/templatesPage/ui/templatesPage'))
 
 export default function App() {
     const user = useSelector((state: RootState) => state.auth.user);
