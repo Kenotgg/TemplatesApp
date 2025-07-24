@@ -19,6 +19,7 @@
     "@mui/x-date-pickers-pro": "^8.8.0",
     "@reduxjs/toolkit": "^2.8.2",
     "date-fns": "^4.1.0",
+    "framer-motion": "^12.23.9",
     "next-themes": "^0.4.6",
     "react": "^19.1.0",
     "react-datepicker": "^8.4.0",

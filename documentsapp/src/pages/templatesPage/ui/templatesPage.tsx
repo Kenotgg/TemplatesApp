@@ -2,7 +2,7 @@ import React, { useMemo, useState, useEffect } from 'react';
 import { useGetTemplatesQuery } from '@/pages/templatesPage/api/templatesApi';
 import Loading from '@/shared/ui/spinner/Loading';
 import { TemplatesList } from '@/features/templatesList/ui/templatesList';
-import { Heading } from '@chakra-ui/react';
+import { Heading, Stack } from '@chakra-ui/react';
 import useDebounce from '@/app/hooks/useDebounce'
 import { useSearchParams } from 'react-router-dom'
 import { TemplateFilters } from '@/features/templatesList/ui/templateFilters';
@@ -29,7 +29,7 @@ const TemplatesPage: React.FC = () => {
         if (statusFilter && statusFilter !== 'all') {
             params.set('status', statusFilter);
         }
-        if(dateFilter){
+        if (dateFilter) {
             params.set('date', dateFilter);
         }
         if (debouncedSearchQuery) {
@@ -54,14 +54,14 @@ const TemplatesPage: React.FC = () => {
                 template.name.toLowerCase().includes(currentFilters.query.toLowerCase()))
         }
 
-        if(currentFilters.date){
+        if (currentFilters.date) {
             const filterDate = new Date(currentFilters.date);
             result = result.filter(template => {
                 const templateDate = new Date(template.createdAt);
-                return(
+                return (
                     templateDate.getFullYear() === filterDate.getFullYear() &&
                     templateDate.getMonth() === filterDate.getMonth() &&
-                    templateDate.getDate() === filterDate.getDate() 
+                    templateDate.getDate() === filterDate.getDate()
                 );
             });
         }
@@ -72,14 +72,13 @@ const TemplatesPage: React.FC = () => {
     if (isLoading) {
         return <Loading />
     }
-    
+
     if (isError && error) {
         return <div>Error when try to loading templates: {error.toString()}</div>
     }
 
     return (
-        <div>
-            <Heading marginBottom={5}>TemplatesList</Heading>
+        <Stack>
             <TemplateFilters
                 statusFilter={statusFilter}
                 onStatusFilterChange={setStatusFilter}
@@ -90,7 +89,7 @@ const TemplatesPage: React.FC = () => {
             >
             </TemplateFilters>
             <TemplatesList templates={filteredTemplates}></TemplatesList>
-        </div>
+        </Stack>
     )
 }
 export default TemplatesPage;

@@ -25,7 +25,7 @@ export const TemplateCard: React.FC<TemplateCardProps> = React.memo(({
     });
     const trancuatedDescription = truncateText(template.description, 50)
     return (
-        <Box>
+        <Box width={'100%'}>
             <Card.Root display={'flex'} variant={"elevated"} className="border border-gray-200 rounded-lg">
                 <CardHeader  >
                     <Box className="flex items-center" >
@@ -47,7 +47,7 @@ export const TemplateCard: React.FC<TemplateCardProps> = React.memo(({
                     </Box>
 
                 </CardHeader>
-                <CardFooter width={30} className="flex justify-between items-center">
+                <CardFooter className="flex justify-between items-center">
                     <Flex justify="space-around" wrap="wrap">
                         <Stack direction={'row'}>
                             {(onEdit || onDelete || onDuplicate) && (

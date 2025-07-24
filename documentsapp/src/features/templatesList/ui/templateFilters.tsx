@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Stack } from "@chakra-ui/react";
+import { Stack, Box } from "@chakra-ui/react";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -28,27 +28,32 @@ export const TemplateFilters: React.FC<ITemplateFiltersProps> = ({
     };
 
     return (
-        <Stack>
-            <label htmlFor="status-select">Статус:</label>
-            <select
-                id="status-select"
-                value={statusFilter}
-                onChange={(e) => onStatusFilterChange(e.target.value as 'all' | 'черновик' | 'опубликован')}
-            >
-                <option value="all">Все</option>
-                <option value="черновик">черновик</option>
-                <option value="опубликован">опубликован</option>
-            </select>
+        <Stack alignSelf={'center'} direction={'row'}>
 
-            <label htmlFor="search-by-name">Поиск по названию:</label>
-            <input
-                type="text"
-                id="search-by-name"
-                value={searchQuery} // Здесь используем searchQuery, которая является inputValue из TemplatesPage
-                onChange={(e) => onSearchQueryChange(e.target.value)}
-            />
+            <Stack direction={'column'}>
+                <label htmlFor="search-by-name">Поиск по названию:</label>
+                <input
+                    type="text"
+                    id="search-by-name"
+                    value={searchQuery} // Здесь используем searchQuery, которая является inputValue из TemplatesPage
+                    onChange={(e) => onSearchQueryChange(e.target.value)}
+                />
+            </Stack>
 
-            <div>
+            <Stack direction={'column'}>
+                <label htmlFor="status-select">Статус:</label>
+                <select
+                    id="status-select"
+                    value={statusFilter}
+                    onChange={(e) => onStatusFilterChange(e.target.value as 'all' | 'черновик' | 'опубликован')}
+                >
+                    <option value="all">Все</option>
+                    <option value="черновик">черновик</option>
+                    <option value="опубликован">опубликован</option>
+                </select>
+            </Stack>
+
+            <Stack direction={'column'}>
                 <label htmlFor="date-picker">По дате:</label>
                 <DatePicker
                     id="date-picker"
@@ -58,7 +63,9 @@ export const TemplateFilters: React.FC<ITemplateFiltersProps> = ({
                     placeholderText="Выберите дату"
                 >
                 </DatePicker>
-            </div>
+            </Stack>
+
+
         </Stack>
     )
 }

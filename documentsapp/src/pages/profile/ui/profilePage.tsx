@@ -1,2 +1,7 @@
-//Сюда нужно скомпозировать все компоненты которые должны быть в профиле
-import ProfilePage from "@/entities/user/ui/profilePage";
+import { ProfilePage as ProfileInfo } from "@/entities/user";
+
+export const ProfilePage: React.FC = () => {
+    return (
+        <ProfileInfo></ProfileInfo>
+    );
+}
