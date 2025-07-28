@@ -51,3 +51,7 @@ DocumentsApp - это Single Page Application веб приложение нап
 - typescript-eslint@8.37.0
 - typescript@5.8.3
 - vite@7.0.4
+
+## Примененные принципы согласно Feature-Sliced Design (FSD)
+
+
