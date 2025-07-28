@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/app/hooks/hooks';
-import { loginStart, loginSuccess, loginFailure, logout } from './authSlice';
-import { login } from '../api/authApi';
-import type { User } from '@/entities/user/model/user';
+import { loginStart, loginSuccess, loginFailure, logout } from '../auth/authSlice';
+import { login } from '@/pages/login/api/authApi';
+import type { IUser } from '@/entities/user/model/user';
 
 export const useAuth = () => {
     const dispatch = useAppDispatch();
@@ -12,7 +12,7 @@ export const useAuth = () => {
     const handleLogin = async (credentials: { email: string; password: string }) => {
         dispatch(loginStart());
         try {
-            const userData: User | null = await login(credentials);
+            const userData: IUser | null = await login(credentials);
             if (userData) {
                 dispatch(loginSuccess(userData));
             } else {

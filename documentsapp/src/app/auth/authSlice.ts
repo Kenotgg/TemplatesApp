@@ -1,14 +1,22 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import type { User } from "@/entities/user/model/user";
+import type { IUser } from "@/entities/user/model/user";
 
 interface AuthState {
-    user: User | null;
+    user: IUser | null;
     isLoading: boolean;
     error: string | null;
 }
+const getLocalStorage = (): IUser | null => {
+    try {
+        const storedUser = localStorage.getItem('user');
+        return storedUser ? JSON.parse(storedUser) : null;
+    } catch (e) {
+        return null;
+    }
+}
 
 const initialState: AuthState = {
-    user: null,
+    user: getLocalStorage(),
     isLoading: false,
     error: null,
 };
@@ -21,7 +29,7 @@ const authSlice = createSlice({
             state.isLoading = true;
             state.error = null;
         },
-        loginSuccess(state, action: PayloadAction<User>) {
+        loginSuccess(state, action: PayloadAction<IUser>) {
             state.user = action.payload;
             state.isLoading = false;
             state.error = null;
@@ -34,8 +42,13 @@ const authSlice = createSlice({
         logout(state) {
             state.user = null;
         },
+        profileUpdate(state, action: PayloadAction<IUser>) {
+            state.user = getLocalStorage();
+            state.isLoading = false;
+            state.error = null;
+        }
     },
 });
 
-export const { loginStart, loginSuccess, loginFailure, logout } = authSlice.actions;
+export const { loginStart, loginSuccess, loginFailure, logout, profileUpdate } = authSlice.actions;
 export default authSlice.reducer;

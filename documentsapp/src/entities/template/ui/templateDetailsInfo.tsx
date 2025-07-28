@@ -1,13 +1,13 @@
-// src/entities/template/ui/TemplateDetailsPage.tsx
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useGetTemplateByIdQuery } from '@/entities/template/api/templatesApi';
+import { useGetTemplateByIdQuery } from '@/pages/templatesPage/api/templatesApi';
 import Loading from '@/shared/ui/spinner/Loading';
-import TemplateEditForm from '@/features/template/ui/templateEditForm/templateEditForm';
+import TemplateEditForm from '@/features/editTemplate/ui/templateEditForm/templateEditForm';
 import Modal from '@/shared/ui/modal/ui/modal';
-import type { ITemplate } from '../../model/types';
+import type { ITemplate } from '../model/types';
+import { Button, Image, Spacer, Stack, Text } from '@chakra-ui/react';
 
-const TemplateDetailsPage: React.FC = () => {
+const TemplateDetailsInfo: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { data: template, isLoading, isError, error } = useGetTemplateByIdQuery(id!);
 
@@ -22,7 +22,7 @@ const TemplateDetailsPage: React.FC = () => {
 
   const handleOpenModal = () => {
     console.log("Try to open modal template is ", template);
-    if(updatedTemplate){
+    if (updatedTemplate) {
       setIsModalOpen(true);
     } else {
       console.warn("Cannot open modal: updatedTemplate is undefined");
@@ -34,7 +34,6 @@ const TemplateDetailsPage: React.FC = () => {
   };
 
   const handleSaveTemplate = (updatedTemplateData: { id: string; name: string; description: string, status: 'черновик' | 'опубликован', createdAt: string, updatedAt: string, author: string, tags: string[] }) => {
-    console.log('Обновили данные в темплейте', updatedTemplateData);
     setUpdatedTemplate(updatedTemplateData);
     handleCloseModal();
   };
@@ -44,29 +43,39 @@ const TemplateDetailsPage: React.FC = () => {
   }
 
   if (isError && error) {
-    return <div>Error loading template: {error.toString()}</div>;
+    return <div>Ошибка при загрузке темплейта: {error.toString()}</div>;
   }
 
   if (!template) {
-    return <div>Template not found</div>;
+    return <div>Данного темплейта не существует...</div>;
   }
 
   return (
-    <div>
-      <h1>{template.name}</h1>
-      <p>{template.description}</p>
-      <p>Status: {template.status}</p>
-      <p>Author: {template.author}</p>
-      <button onClick={handleOpenModal}>Изменить</button>
 
-      {/* Условный рендеринг Modal */}
+    <Stack>
+      <Stack>
+        <Text>{template.name}</Text>
+        <Spacer></Spacer>
+      </Stack>
+      
+      <Stack direction={'row'}>
+        <Image width={'30%'} height={'30%'} src={'../public/1.jpg'}></Image>
+        <p>{template.description}</p>
+        <Button bg={'blue.400'} onClick={handleOpenModal}>Изменить</Button>
+      </Stack>
+
+      <Stack direction={'row'}>
+        <p>Статус: {template.status}</p>
+        <p>Автор публикации: {template.author}</p>
+      </Stack>
+
       {updatedTemplate && (
         <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
           <TemplateEditForm template={updatedTemplate as ITemplate} onSave={handleSaveTemplate} onCancel={handleCloseModal} />
         </Modal>
       )}
-    </div>
+    </Stack>
   );
 };
+export default TemplateDetailsInfo;
 
-export default TemplateDetailsPage;

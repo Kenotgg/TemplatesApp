@@ -2,7 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import type { ITemplate } from "@/entities/template/model/types";
 import { Avatar, Box, Button, Card, CardFooter, CardHeader, Flex, Heading, Stack, Stat, StatLabel, Text } from "@chakra-ui/react";
-import { truncateText } from "@/shared/lib/utils/trancuateText";
+import { truncateText } from "@/shared/lib/helpers/trancuateText";
+
+
 interface TemplateCardProps {
     template: ITemplate;
     onEdit?: (id: string) => void;
@@ -23,7 +25,7 @@ export const TemplateCard: React.FC<TemplateCardProps> = React.memo(({
     });
     const trancuatedDescription = truncateText(template.description, 50)
     return (
-        <Box>
+        <Box width={'100%'}>
             <Card.Root display={'flex'} variant={"elevated"} className="border border-gray-200 rounded-lg">
                 <CardHeader  >
                     <Box className="flex items-center" >
@@ -45,7 +47,7 @@ export const TemplateCard: React.FC<TemplateCardProps> = React.memo(({
                     </Box>
 
                 </CardHeader>
-                <CardFooter width={30} className="flex justify-between items-center">
+                <CardFooter className="flex justify-between items-center">
                     <Flex justify="space-around" wrap="wrap">
                         <Stack direction={'row'}>
                             {(onEdit || onDelete || onDuplicate) && (
