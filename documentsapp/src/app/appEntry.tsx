@@ -1,17 +1,18 @@
 import { Provider as ReduxProvider } from 'react-redux';
-import { Provider as ChakraProvider } from '@/app/providers/ui/provider'
+import { ChakraProvider } from '@chakra-ui/react'
+import * as ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom';
-import { createRoot } from 'react-dom/client'
 import App from '@/app/App';
 import { store } from '@/app/appStore';
 import '@/app/styles/index.css'
 
-createRoot(document.getElementById('root')!).render(
+const rootElement: any = document.getElementById('root');
+ReactDOM.createRoot(rootElement).render(
     <BrowserRouter>
-        <ChakraProvider>
-            <ReduxProvider store={store}>
+        <ReduxProvider store={store}>
+            <ChakraProvider>
                 <App></App>
-            </ReduxProvider>
-        </ChakraProvider>
+            </ChakraProvider>
+        </ReduxProvider>
     </BrowserRouter>,
 )

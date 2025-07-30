@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Box, Button, Stack } from '@chakra-ui/react';
 import ReactDOM from 'react-dom';
 import styles from './Modal.module.scss';
 interface ModalProps {
@@ -27,7 +28,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
             }
         };
 
-        
+
         if (isOpen) {
             document.addEventListener('mousedown', handleClickOutside);
         }
@@ -38,20 +39,22 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
 
     }, [isOpen, onClose]);
 
-    if(!isOpen || !modalRoot){
+    if (!isOpen || !modalRoot) {
         return null;
     }
 
     return ReactDOM.createPortal(
-            <div className={styles.modalOverlay}>
-                <div className={styles.modalContent} ref={modalRef}>
-                    <button className={styles.closeButton} onClick={onClose}>
+        <Box className={styles.modalOverlay}>
+            <Box className={styles.modalContent} ref={modalRef}>
+                    <Button className={styles.closeButton} onClick={onClose}>
                         &times;
-                    </button>
-                    {children}
-                </div>
-            </div>,
-            modalRoot
+                    </Button>
+                    <Box>
+                        {children}
+                    </Box>
+            </Box>
+        </Box>,
+        modalRoot
     );
 };
 

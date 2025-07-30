@@ -4,8 +4,8 @@ import { useUserData } from '@/app/hooks/hooks';
 import { logout } from '@/app/auth/authSlice';
 import EditProfileForm from '@/features/editProfile/ui/editProfileForm';
 import Modal from '@/shared/ui/modal/ui/modal';
-
-
+import { Heading, Stack, Button, Text, Box, IconButton } from '@chakra-ui/react';
+import { LuFilePen } from 'react-icons/lu';
 
 const ProfilePage: React.FC = () => {
     const { user } = useUserData();
@@ -30,28 +30,22 @@ const ProfilePage: React.FC = () => {
 
 
     return (
-        <div className="profile-container">
-            <h1>Профиль пользователя</h1>
+        <div>
+            <Stack direction={'row'}>
+                <Heading>Профиль пользователя</Heading>
 
-            <div className="profile-item">
-                <span className="profile-label">ID:</span>
-                <span>{user.id}</span>
-            </div>
-
-            <div className="profile-item">
-                <span className="profile-label">Email:</span>
-                <span>{user.email}</span>
-            </div>
-
-            <div className="profile-item">
-                <span className="profile-label">Имя:</span>
-                <span>{user.name}</span>
-            </div>
-            <button onClick={handleLogout}>Выйти</button>
-            <button onClick={handleOpenModal}>Edit</button>
-
+            </Stack>
+            <Box textAlign='left'>
+                <Stack direction={'row'}><Text fontWeight={'medium'}>Имя:</Text> {user.name}</Stack>
+                <Stack direction={'row'}><Text fontWeight={'medium'}>Email:</Text>{user.email}</Stack>
+                <Stack mt={2} direction={'row'}>
+                    <Button  color={'white'} bg={'red.600'} onClick={handleLogout}>Выйти</Button>
+                    <Button color={'white'} bg={'blue.600'}  onClick={handleOpenModal}>Изменить</Button>
+                </Stack>
+            </Box>
             <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
                 <EditProfileForm user={user} onClose={handleCloseModal}></EditProfileForm>
+
             </Modal>
         </div>
     );

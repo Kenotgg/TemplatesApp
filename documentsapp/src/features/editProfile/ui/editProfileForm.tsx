@@ -1,6 +1,7 @@
 // src/features/profile/editProfileForm/ui/EditProfileForm.tsx
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { Box, Heading, Spacer, Stack } from '@chakra-ui/react';
 import { useAppDispatch } from '@/app/hooks/hooks';
 import { loginSuccess as login, profileUpdate } from '@/app/auth/authSlice'; // <- Correct action
 import type { IUser } from '@/entities/user/model/user';
@@ -45,16 +46,13 @@ const EditProfileForm: React.FC<EditProfileFormProps> = ({ user, onClose }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-            <h2>Редактировать профиль</h2>
-
-            <div className={styles.formGroup}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <Heading>Редактировать профиль</Heading>
+            <Stack direction={'column'}>
                 <label htmlFor="name">Имя:</label>
                 <input type="text" id="name" {...register("name", { required: "Пожалуйста, введите имя" })} />
                 {errors.name && <span className={styles.error}>{errors.name.message}</span>}
-            </div>
 
-            <div className={styles.formGroup}>
                 <label htmlFor="email">Email:</label>
                 <input type="email" id="email" {...register("email", {
                     required: "Пожалуйста, введите email",
@@ -64,16 +62,17 @@ const EditProfileForm: React.FC<EditProfileFormProps> = ({ user, onClose }) => {
                     }
                 })} />
                 {errors.email && <span className={styles.error}>{errors.email.message}</span>}
-            </div>
 
-            <div className={styles.formActions}>
-                <button type="button" onClick={onClose} className={styles.cancelButton}>
-                    Отмена
-                </button>
-                <button type="submit" className={styles.submitButton}>
-                    Сохранить
-                </button>
-            </div>
+                <div className={styles.formActions}>
+                    <button type="button" onClick={onClose} className={styles.cancelButton}>
+                        Отмена
+                    </button>
+                    <button type="submit" className={styles.submitButton}>
+                        Сохранить
+                    </button>
+                </div>
+            </Stack>
+
         </form>
     );
 };

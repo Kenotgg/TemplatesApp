@@ -26,7 +26,7 @@ export const TemplateCard: React.FC<TemplateCardProps> = React.memo(({
     const trancuatedDescription = truncateText(template.description, 50)
     return (
         <Box width={'100%'}>
-            <Card.Root display={'flex'} variant={"elevated"} className="border border-gray-200 rounded-lg">
+            <Card display={'flex'} variant={"elevated"} className="border border-gray-200 rounded-lg">
                 <CardHeader  >
                     <Box className="flex items-center" >
                         <Stack direction={'column'}>
@@ -61,7 +61,7 @@ export const TemplateCard: React.FC<TemplateCardProps> = React.memo(({
                         </Stack>
                     </Flex>
                 </CardFooter>
-            </Card.Root>
+            </Card>
            
         </Box>
 

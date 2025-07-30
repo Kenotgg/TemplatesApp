@@ -4,8 +4,8 @@ import type { IUser } from '@/entities/user/model/user';
 
 const FAKE_USER = {
     id: 'user-1',
-    email: 'test@example.com',
-    password: '1234',
+    email: '1@gmail.com',
+    password: 'DFAD',
     name: 'Test User',
 };
 
