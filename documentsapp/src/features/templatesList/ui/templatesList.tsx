@@ -13,7 +13,7 @@ export const TemplatesList: React.FC<TemplateListProps> = React.memo(({ template
     }
 
     return (
-        <SimpleGrid alignSelf={'center'} border={"2px solid"} marginTop={5} borderColor={'gray.200'} borderRadius={"md"} boxShadow={"md"} columns={{ base: 1, md: 3 }} gap={'5px'} w="full">
+        <SimpleGrid alignSelf={'center'} border={"2px solid"} marginTop={5} borderColor={'gray.200'} borderRadius={"md"} boxShadow={"md"} columns={{ base: 1, md: 3 }} gap={'10px'} w="full">
             {templates.map((template: any) => (
                 <TemplateCard key={template.id} template={template}></TemplateCard>
             ))}

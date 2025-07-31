@@ -51,24 +51,26 @@ const TemplateDetailsInfo: React.FC = () => {
   }
 
   return (
-
-    <Stack>
-      <Stack>
-        <Text>{template.name}</Text>
-        <Spacer></Spacer>
+    <Stack border={"2px solid"} alignSelf={'center'} borderColor={'gray.200'} borderRadius={"md"} boxShadow={"md"} width={'container.sm'}>
+      <Stack ml={'5'} mr={'5'} alignSelf={'center'} direction={'column'}>
+        <Text fontSize={'32'} fontWeight={'bold'}>{template.name}</Text>
+        <Stack direction={'row'}>
+          <Image alignSelf={'left'} width={'500'} height={'500'} src={'../public/1.jpg'}></Image>
+          <Stack direction={'column'}>
+            <Stack direction={'column'}>
+              <Text>Статус: {template.status}</Text>
+              <Text>Автор публикации: </Text>
+              <Text>{template.author}</Text>
+            </Stack>
+            <Button color={'white'} bg={'blue.400'} onClick={handleOpenModal}>Изменить</Button>
+          </Stack>
+        </Stack>
+        <Stack direction={'column'}>
+          <Text fontWeight={'bold'}>Описание:</Text>
+          <Text>{template.description}</Text>
+          {/* <Text width={'100'}>{'template.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.description'}</Text> */}
+        </Stack>
       </Stack>
-      
-      <Stack direction={'row'}>
-        <Image width={'30%'} height={'30%'} src={'../public/1.jpg'}></Image>
-        <p>{template.description}</p>
-        <Button bg={'blue.400'} onClick={handleOpenModal}>Изменить</Button>
-      </Stack>
-
-      <Stack direction={'row'}>
-        <p>Статус: {template.status}</p>
-        <p>Автор публикации: {template.author}</p>
-      </Stack>
-
       {updatedTemplate && (
         <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
           <TemplateEditForm template={updatedTemplate as ITemplate} onSave={handleSaveTemplate} onCancel={handleCloseModal} />

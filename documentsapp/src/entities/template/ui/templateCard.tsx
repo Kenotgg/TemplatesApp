@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import type { ITemplate } from "@/entities/template/model/types";
-import { Avatar, Box, Button, Card, CardFooter, CardHeader, Flex, Heading, Stack, Stat, StatLabel, Text } from "@chakra-ui/react";
+import { Image, Box, Button, Card, CardFooter, CardHeader, Flex, Heading, Stack, Stat, StatLabel, Text } from "@chakra-ui/react";
 import { truncateText } from "@/shared/lib/helpers/trancuateText";
 
 
@@ -26,44 +26,46 @@ export const TemplateCard: React.FC<TemplateCardProps> = React.memo(({
     const trancuatedDescription = truncateText(template.description, 50)
     return (
         <Box width={'100%'}>
-            <Card display={'flex'} variant={"elevated"} className="border border-gray-200 rounded-lg">
-                <CardHeader  >
-                    <Box className="flex items-center" >
-                        <Stack direction={'column'}>
-                            <Heading marginLeft={2} title={template.name} data-tooltip-id="my-toolTip" size={'md'}>{template.name}</Heading>
-                            <Stack marginLeft={2} direction={'column'}>
-                                <Stack>
-                                    <Text>{trancuatedDescription}</Text>
-                                    <Text>Статус: {template.status}</Text>
-                                </Stack>
-                                <Text>
-                                    <Text fontSize="sm">
-                                        Создан: {formatedCreatedAt}
+            <Link to={`/template/${template.id}`}>
+                <Card display={'flex'} variant={"elevated"}>
+                    <CardHeader>
+                        <Box className="flex items-center" >
+                            <Stack direction={'column'}>
+                                <Image width={'100%'} height={'100%'} src={'../public/1.jpg'}></Image>
+                                <Heading marginLeft={2} title={template.name} data-tooltip-id="my-toolTip" size={'md'}>{template.name}</Heading>
+                                <Stack marginLeft={2} direction={'column'}>
+                                    <Stack>
+                                        <Text>{trancuatedDescription}</Text>
+                                        <Text>Статус: {template.status}</Text>
+                                    </Stack>
+                                    <Text>
+                                        <Text fontSize="sm">
+                                            Создан: {formatedCreatedAt}
+                                        </Text>
                                     </Text>
-                                </Text>
+
+                                </Stack>
+                            </Stack>
+                        </Box>
+
+                    </CardHeader>
+                    <CardFooter className="flex justify-between items-center">
+                        <Flex justify="space-around" wrap="wrap">
+                            <Stack direction={'row'}>
+                                {(onEdit || onDelete || onDuplicate) && (
+                                    <div>
+                                        {onEdit && <Button onClick={() => onEdit(template.id)}>Изменить</Button>}
+                                        {onDuplicate && <Button onClick={() => onDuplicate(template.id)}>Дублировать</Button>}
+                                        {onDelete && <Button onClick={() => onDelete(template.id)}>Удалить</Button>}
+                                    </div>
+                                )}
 
                             </Stack>
-                        </Stack>
-                    </Box>
-
-                </CardHeader>
-                <CardFooter className="flex justify-between items-center">
-                    <Flex justify="space-around" wrap="wrap">
-                        <Stack direction={'row'}>
-                            {(onEdit || onDelete || onDuplicate) && (
-                                <div>
-                                    {onEdit && <Button onClick={() => onEdit(template.id)}>Edit</Button>}
-                                    {onDuplicate && <Button onClick={() => onDuplicate(template.id)}>Duplicate</Button>}
-                                    {onDelete && <Button onClick={() => onDelete(template.id)}>Delete</Button>}
-                                </div>
-                            )}
-                             <Link to={`/template/${template.id}`}>Посмотреть детали</Link>
-                        </Stack>
-                    </Flex>
-                </CardFooter>
-            </Card>
-           
-        </Box>
+                        </Flex>
+                    </CardFooter>
+                </Card>
+            </Link>
+        </Box >
 
     )
 })

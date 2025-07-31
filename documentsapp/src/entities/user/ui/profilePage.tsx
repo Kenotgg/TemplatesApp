@@ -30,24 +30,24 @@ const ProfilePage: React.FC = () => {
 
 
     return (
-        <div>
+        <Box alignSelf={'center'}>
             <Stack direction={'row'}>
                 <Heading>Профиль пользователя</Heading>
 
             </Stack>
             <Box textAlign='left'>
-                <Stack direction={'row'}><Text fontWeight={'medium'}>Имя:</Text> {user.name}</Stack>
-                <Stack direction={'row'}><Text fontWeight={'medium'}>Email:</Text>{user.email}</Stack>
+                <Stack direction={'row'}><Text fontWeight={'medium'}>Имя:</Text> <Text>{user.name}</Text></Stack>
+                <Stack direction={'row'}><Text fontWeight={'medium'}>Email:</Text><Text>{user.email}</Text></Stack>
                 <Stack mt={2} direction={'row'}>
-                    <Button  color={'white'} bg={'red.600'} onClick={handleLogout}>Выйти</Button>
-                    <Button color={'white'} bg={'blue.600'}  onClick={handleOpenModal}>Изменить</Button>
+                    <Button color={'white'} bg={'red.600'} onClick={handleLogout}>Выйти</Button>
+                    <Button color={'white'} bg={'blue.600'} onClick={handleOpenModal}>Изменить</Button>
                 </Stack>
             </Box>
             <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
                 <EditProfileForm user={user} onClose={handleCloseModal}></EditProfileForm>
 
             </Modal>
-        </div>
+        </Box>
     );
 };
 

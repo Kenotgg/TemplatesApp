@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Stack, Box, Input, Spacer, Text } from "@chakra-ui/react";
+import { Stack, Box, Input, Spacer, Text, Divider } from "@chakra-ui/react";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -29,9 +29,47 @@ export const TemplateFilters: React.FC<ITemplateFiltersProps> = ({
 
     return (
 
-        <Stack maxWidth={700} p={6} border={"2px solid"} marginTop={5} borderColor={'gray.200'} borderRadius={"md"} boxShadow={"md"} alignSelf={'left'} direction={'column'}>
+        <Stack overflow={'auto'} p={6} border={"2px solid"} marginTop={5} borderColor={'gray.200'} borderRadius={"md"} boxShadow={"md"} alignSelf={'left'} direction={'row'}>
+            <Stack direction={'row'}>
+                <Stack textAlign={'left'} direction={'column'}>
+                    <Text textAlign={'left'}>Фильтрация: </Text>
+                    <Stack direction={'row'}>
+                        <Stack direction={'column'}>
+                            <label htmlFor="status-select">По статусу:</label>
+                            <select
+                                id="status-select"
+                                value={statusFilter}
+                                onChange={(e) => onStatusFilterChange(e.target.value as 'all' | 'черновик' | 'опубликован')}
+                            >
+                                <option value="all">Все</option>
+                                <option value="черновик">черновик</option>
+                                <option value="опубликован">опубликован</option>
+                            </select>
+                        </Stack>
+
+                        <Stack textAlign={'left'} direction={'column'}>
+                            <label htmlFor="date-picker">По дате:</label>
+                            <DatePicker
+                                id="date-picker"
+                                selected={localDate}
+                                onChange={handleDataChange}
+                                dateFormat="yyyy-MM-dd"
+                                placeholderText="Выберите дату"
+                            >
+                            </DatePicker>
+                        </Stack>
+                    </Stack>
+
+
+                </Stack>
+
+
+            </Stack>
+
             <Stack direction={'column'}>
+                <Text textAlign={'left'}>Поиск: </Text>
                 <Input
+                    width={'100%'}
                     placeholder="Поиск по названию шаблона"
                     color="black"
                     bg={'white'}
@@ -40,33 +78,7 @@ export const TemplateFilters: React.FC<ITemplateFiltersProps> = ({
                     onChange={(e) => onSearchQueryChange(e.target.value)}
                 />
             </Stack>
-            <Text textAlign={'left'}>Фильтрация: </Text>
-            <Stack direction={'row'}>
-                <Stack textAlign={'left'} direction={'column'}>
-                    <label htmlFor="status-select">По статусу:</label>
-                    <select
-                        id="status-select"
-                        value={statusFilter}
-                        onChange={(e) => onStatusFilterChange(e.target.value as 'all' | 'черновик' | 'опубликован')}
-                    >
-                        <option value="all">Все</option>
-                        <option value="черновик">черновик</option>
-                        <option value="опубликован">опубликован</option>
-                    </select>
-                </Stack>
 
-                <Stack textAlign={'left'} direction={'column'}>
-                    <label htmlFor="date-picker">По дате:</label>
-                    <DatePicker
-                        id="date-picker"
-                        selected={localDate}
-                        onChange={handleDataChange}
-                        dateFormat="yyyy-MM-dd"
-                        placeholderText="Выберите дату"
-                    >
-                    </DatePicker>
-                </Stack>
-            </Stack>
 
 
 
