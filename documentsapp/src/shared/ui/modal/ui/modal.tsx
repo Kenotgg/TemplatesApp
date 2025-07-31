@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Box, Button, Stack } from '@chakra-ui/react';
 import ReactDOM from 'react-dom';
 import styles from './Modal.module.scss';
+
 interface ModalProps {
     isOpen: boolean;
     onClose: () => void;
@@ -45,14 +46,14 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
 
     return ReactDOM.createPortal(
         <Box className={styles.modalOverlay}>
-            <Box className={styles.modalContent} ref={modalRef}>
+            <Stack className={styles.modalContent} ref={modalRef}>
                     <Button className={styles.closeButton} onClick={onClose}>
                         &times;
                     </Button>
                     <Box>
                         {children}
                     </Box>
-            </Box>
+            </Stack>
         </Box>,
         modalRoot
     );

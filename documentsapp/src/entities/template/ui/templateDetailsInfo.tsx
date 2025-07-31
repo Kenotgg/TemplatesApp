@@ -51,24 +51,28 @@ const TemplateDetailsInfo: React.FC = () => {
   }
 
   return (
-    <Stack border={"2px solid"} alignSelf={'center'} borderColor={'gray.200'} borderRadius={"md"} boxShadow={"md"} width={'container.sm'}>
-      <Stack ml={'5'} mr={'5'} alignSelf={'center'} direction={'column'}>
+    <Stack mb={5} mt={5} border={"2px solid"} alignSelf={'center'} borderColor={'gray.200'} borderRadius={"md"} boxShadow={"md"} >
+      <Stack ml={3} mr={3} mb={3} overflow={'auto'} alignSelf={'center'} direction={'column'}>
         <Text fontSize={'32'} fontWeight={'bold'}>{template.name}</Text>
         <Stack direction={'row'}>
-          <Image alignSelf={'left'} width={'500'} height={'500'} src={'../public/1.jpg'}></Image>
+          <Image mr={'5'} shadow={'base'} alignSelf={'left'} width={'50%'} height={'50%'} src={'../public/1.jpg'}></Image>
           <Stack direction={'column'}>
             <Stack direction={'column'}>
-              <Text>Статус: {template.status}</Text>
-              <Text>Автор публикации: </Text>
-              <Text>{template.author}</Text>
+              <Stack direction={'row'}>
+                <Text fontSize={'24'} fontWeight={'bold'}>Статус:</Text>
+                <Text fontSize={'24'}>{template.status}</Text>
+              </Stack>
+              <Stack direction={'row'}>
+                <Text fontSize={'24'} fontWeight={'bold'}>Автор публикации:</Text>
+                <Text fontSize={'24'}>{template.author}</Text>
+              </Stack>
             </Stack>
-            <Button color={'white'} bg={'blue.400'} onClick={handleOpenModal}>Изменить</Button>
+            <Button fontSize={'24'} color={'white'} bg={'blue.400'} onClick={handleOpenModal}>Изменить</Button>
           </Stack>
         </Stack>
         <Stack direction={'column'}>
-          <Text fontWeight={'bold'}>Описание:</Text>
-          <Text>{template.description}</Text>
-          {/* <Text width={'100'}>{'template.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.descriptiontemplate.description'}</Text> */}
+          <Text fontSize={'28'} fontWeight={'bold'}>Описание:</Text>
+          <Text fontSize={'24'}>{template.description}</Text>
         </Stack>
       </Stack>
       {updatedTemplate && (

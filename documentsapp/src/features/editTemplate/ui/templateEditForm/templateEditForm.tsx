@@ -1,6 +1,7 @@
 import type { ITemplate } from '@/entities/template/model/types';
 import { useForm } from 'react-hook-form';
 import React, { useState } from 'react';
+import { Box, Button, Heading, Input, Select, Text, Textarea } from '@chakra-ui/react';
 
 interface TemplateEditFormProps {
     template: ITemplate;
@@ -28,37 +29,37 @@ const TemplateEditForm: React.FC<TemplateEditFormProps> = ({ template, onSave, o
     };
 
     return (
-        <div>
-            <h2>Изменить заготовку для документа:</h2>
+        <Box>
+            <Heading>Изменить заготовку для документа:</Heading>
             <form onSubmit={handleSubmit(onSave)}>
-                <label style={{ color: 'black' }} htmlFor='nameInput'>Название:</label>
-                <div>
-                    <input type='text' id='nameInput' {...register('name')} />
-                    {errors.name && <span>{errors.name.message}</span>} {/* Отображение ошибок */}
-                </div>
-                <label style={{ color: 'black' }} htmlFor='descriptionInput'>Описание:</label>
-                <div>
-                    <textarea id='descriptionInput' {...register('description')} />
+                <Text style={{ color: 'black' }} >Название:</Text>
+                <Box>
+                    <Input type='text' id='nameInput' {...register('name')} />
+                    {errors.name && <span>{errors.name.message}</span>}
+                </Box>
+                <Text style={{ color: 'black' }}>Описание:</Text>
+                <Box>
+                    <Textarea id='descriptionInput' {...register('description')} />
                     {errors.description && <span>{errors.description.message}</span>}
-                </div>
-                <label style={{ color: 'black' }} htmlFor='statusInput'>Статус:</label>
-                <div>
-                    <select id="statusInput" {...register('status')}>
+                </Box>
+                <Text style={{ color: 'black' }}>Статус:</Text>
+                <Box>
+                    <Select id="statusInput" {...register('status')}>
                         <option value="черновик">Черновик</option>
                         <option value="опубликован">Опубликован</option>
-                    </select>
+                    </Select>
                     {errors.status && <span>{errors.status.message}</span>}
-                </div>
-                <label style={{ color: 'black' }} htmlFor='authorInput'>Автор:</label>
-                <div>
-                    <input type='text' id='authorInput' {...register('author')} />
+                </Box>
+                <Text style={{ color: 'black' }}>Автор:</Text>
+                <Box mb={'2'}>
+                    <Input type='text'{...register('author')} />
                     {errors.author && <span>{errors.author.message}</span>}
-                </div>
-                <button type='submit'>Сохранить</button>
-                <button type='button' onClick={onCancel}>Выйти</button>
+                </Box>
+                <Button mr={'2'} color={'white'} bg={'blue.400'} type='submit'>Сохранить</Button>
+                <Button color={'white'} bg={'red.500'} type='button' onClick={onCancel}>Выйти</Button>
             </form>
 
-        </div>
+        </Box>
     )
 };
 

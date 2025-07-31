@@ -1,7 +1,6 @@
-// src/features/profile/editProfileForm/ui/EditProfileForm.tsx
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Box, Heading, Spacer, Stack } from '@chakra-ui/react';
+import { Box, Heading, Stack, Text, Input, Button} from '@chakra-ui/react';
 import { useAppDispatch } from '@/app/hooks/hooks';
 import { loginSuccess as login, profileUpdate } from '@/app/auth/authSlice'; // <- Correct action
 import type { IUser } from '@/entities/user/model/user';
@@ -49,12 +48,12 @@ const EditProfileForm: React.FC<EditProfileFormProps> = ({ user, onClose }) => {
         <form onSubmit={handleSubmit(onSubmit)}>
             <Heading>Редактировать профиль</Heading>
             <Stack direction={'column'}>
-                <label htmlFor="name">Имя:</label>
-                <input type="text" id="name" {...register("name", { required: "Пожалуйста, введите имя" })} />
+                <Text fontWeight={'bold'}>Имя:</Text>
+                <Input type="text" id="name" {...register("name", { required: "Пожалуйста, введите имя" })} />
                 {errors.name && <span className={styles.error}>{errors.name.message}</span>}
 
-                <label htmlFor="email">Email:</label>
-                <input type="email" id="email" {...register("email", {
+                <Text fontWeight={'bold'}>Электронная почта:</Text>
+                <Input type="email" id="email" {...register("email", {
                     required: "Пожалуйста, введите email",
                     pattern: {
                         value: /^\S+@\S+$/i,
@@ -63,14 +62,14 @@ const EditProfileForm: React.FC<EditProfileFormProps> = ({ user, onClose }) => {
                 })} />
                 {errors.email && <span className={styles.error}>{errors.email.message}</span>}
 
-                <div className={styles.formActions}>
-                    <button type="button" onClick={onClose} className={styles.cancelButton}>
+                <Box className={styles.formActions}>
+                    <Button color={'white'} bg={'red.500'} mr={'2'} type="button" onClick={onClose} className={styles.cancelButton}>
                         Отмена
-                    </button>
-                    <button type="submit" className={styles.submitButton}>
+                    </Button>
+                    <Button color={'white'}  bg={'blue.400'} type="submit" className={styles.submitButton}>
                         Сохранить
-                    </button>
-                </div>
+                    </Button>
+                </Box>
             </Stack>
 
         </form>
