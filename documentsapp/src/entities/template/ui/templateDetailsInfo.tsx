@@ -5,7 +5,7 @@ import Loading from '@/shared/ui/spinner/Loading';
 import TemplateEditForm from '@/features/editTemplate/ui/templateEditForm/templateEditForm';
 import Modal from '@/shared/ui/modal/ui/modal';
 import type { ITemplate } from '../model/types';
-import { Button, Image, Spacer, Stack, Text } from '@chakra-ui/react';
+import { Button, Image, Spacer, Stack, Text, useBreakpointValue } from '@chakra-ui/react';
 
 const TemplateDetailsInfo: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -50,19 +50,26 @@ const TemplateDetailsInfo: React.FC = () => {
     return <div>Данного темплейта не существует...</div>;
   }
 
+  const stackOrientation: any = useBreakpointValue({
+    base: 'column',
+    md: 'row'
+  })
+
+
+
   return (
     <Stack mb={5} mt={5} border={"2px solid"} alignSelf={'center'} borderColor={'gray.200'} borderRadius={"md"} boxShadow={"md"} >
       <Stack ml={3} mr={3} mb={3} overflow={'auto'} alignSelf={'center'} direction={'column'}>
         <Text fontSize={'32'} fontWeight={'bold'}>{template.name}</Text>
-        <Stack direction={'row'}>
+        <Stack direction={stackOrientation}>
           <Image mr={'5'} shadow={'base'} alignSelf={'left'} width={'50%'} height={'50%'} src={'../public/1.jpg'}></Image>
           <Stack direction={'column'}>
             <Stack direction={'column'}>
-              <Stack direction={'row'}>
+              <Stack direction={stackOrientation}>
                 <Text fontSize={'24'} fontWeight={'bold'}>Статус:</Text>
                 <Text fontSize={'24'}>{template.status}</Text>
               </Stack>
-              <Stack direction={'row'}>
+              <Stack direction={stackOrientation}>
                 <Text fontSize={'24'} fontWeight={'bold'}>Автор публикации:</Text>
                 <Text fontSize={'24'}>{template.author}</Text>
               </Stack>
