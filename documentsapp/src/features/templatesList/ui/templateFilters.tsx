@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { Stack, Box, Input, Spacer, Text, Divider, Select, Button, IconButton } from "@chakra-ui/react";
+import { Stack, Box, Input, Spacer, Text, Divider, Select, Button, IconButton, useBreakpointValue } from "@chakra-ui/react";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import '@/app/styles/datePicker.css';
@@ -29,17 +29,27 @@ export const TemplateFilters: React.FC<ITemplateFiltersProps> = ({
         onDateFilterChange(date ? date.toISOString() : null);
     };
 
+    const stackDirection : any = useBreakpointValue({
+        base: 'column', 
+        md: 'row',      
+    });
+    
+    const stackWidth: any = useBreakpointValue({
+        base: 180,
+        sm: 230,
+    })
+
 
     return (
-        <Stack overflow={'auto'} justifyContent={'space-between'} border={"2px solid"} marginTop={5} borderColor={'gray.200'} borderRadius={"md"} boxShadow={"md"} alignSelf={'left'} padding={'2'} direction={'row'}>
+        <Stack overflow={'auto'} justifyContent={'space-between'} border={"2px solid"} marginTop={2} borderColor={'gray.200'} borderRadius={"md"} boxShadow={"md"} alignSelf={'left'} padding={'2'} direction={stackDirection}>
             <Box>
                 <Stack direction={'row'}>
                     <Stack textAlign={'left'} direction={'column'}>
-                        <Stack direction={'row'}>
+                        <Stack direction={stackDirection}>
                             <Stack direction={'column'}>
-                                <label htmlFor="status-select">По статусу:</label>
+                                <Text fontWeight={'normal'}>По статусу:</Text>
                                 <Select
-                                    border={"2px solid black"} height={'35px'} width={'230px'} borderRadius={'base'} _focus={{ borderColor: "blue.500", boxShadow: "0 0 0 1px blue.500", }}
+                                    border={"2px solid black"} height={'35px'} width={stackWidth} borderRadius={'base'} _focus={{ borderColor: "blue.500", boxShadow: "0 0 0 1px blue.500", }}
                                     value={statusFilter}
                                     onChange={(e) => onStatusFilterChange(e.target.value as 'all' | 'черновик' | 'опубликован')}
                                 >
@@ -50,19 +60,20 @@ export const TemplateFilters: React.FC<ITemplateFiltersProps> = ({
                             </Stack>
 
                             <Stack textAlign={'left'} direction={'column'}>
-                                <Text>По дате:</Text>
+                                <Text fontWeight={'normal'}>По дате:</Text>
                                 <Stack direction={'row'}>
                                     <DatePicker
-                                        customInput={<Input fontWeight={'semibold'} border={"2px solid black"} height={'35px'} width={'230px'} borderRadius={'base'} _focus={{ borderColor: "blue.500", boxShadow: "0 0 0 1px blue.500", }}></Input>}
+                                        customInput={<Input fontWeight={'semibold'} border={"2px solid black"} height={'35px'} width={stackWidth} borderRadius={'base'} _focus={{ borderColor: "blue.500", boxShadow: "0 0 0 1px blue.500", }}></Input>}
                                         id="date-picker"
                                         selected={localDate}
                                         onChange={handleDataChange}
-                                        dateFormat="yyyy-mm-dd"
+                                        dateFormat="dd.MM.yyyy"
                                         placeholderText="Выберите дату"
                                         isClearable
                                         clearButtonClassName={'my-custom-clear-button'}
                                         clearButtonTitle="Отчистить поле ввода даты"
                                         locale={customRuLocale}
+                                        
                                     >
                                     </DatePicker>
                                     {/* <IconButton height={'35px'} width={'35px'} aria-label="Стереть введенную дату"><AiFillBackward></AiFillBackward></IconButton> */}
@@ -75,10 +86,10 @@ export const TemplateFilters: React.FC<ITemplateFiltersProps> = ({
             </Box>
 
             <Stack direction={'column'}>
-                <Text>Найти по названию:</Text>
+                <Text fontWeight={'normal'}>Найти по названию:</Text>
                 <Input
                     height={'35px'}
-                    width={'250px'}
+                    width={stackWidth}
                     title="Поиск по названию шаблона"
                     placeholder="Поиск по названию шаблона"
                     color="black"

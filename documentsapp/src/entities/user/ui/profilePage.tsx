@@ -30,7 +30,7 @@ const ProfilePage: React.FC = () => {
 
 
     return (
-        <Box mb={5} mt={5} borderRadius={"md"} boxShadow={"md"} border={'2px solid'} borderColor={'gray.200'} shadow={'base'} alignSelf={'center'}>
+        <Box overflow={'auto'} mb={5} mt={5} borderRadius={"md"} boxShadow={"md"} border={'2px solid'} borderColor={'gray.200'} shadow={'base'} alignSelf={'center'}>
             <Stack ml={2} mr={2} mb={2} direction={'column'}>
                 <Heading>{user.name}</Heading>
                 <Box textAlign='left'>

@@ -1,11 +1,30 @@
 import React from "react";
 import { Link } from 'react-router-dom';
-import { Box, Stack, Avatar, Text, Icon } from '@chakra-ui/react';
+import { Box, Stack, Avatar, Text, Icon, useBreakpointValue } from '@chakra-ui/react';
 import { AiFillHome } from "react-icons/ai";
 interface HeaderProps {
     user: any | null;
 }
 export const Header: React.FC<HeaderProps> = ({ user }) => {
+
+    // Определяем значение justify-content на основе ширины экрана
+    const justifyContent = useBreakpointValue({
+        base: 'flex-end', // Для очень маленьких экранов - прижимаем к правому краю
+        sm: 'space-between', // Для маленьких экранов и больше - стандартное поведение
+    });
+
+    // Определяем, показывать ли логотип
+    const showLogo = useBreakpointValue({
+        base: false, // Скрываем на очень маленьких экранах
+        sm: true, // Показываем на маленьких экранах и больше
+    });
+
+    // Размер шрифта логотипа
+    const logoFontSize = useBreakpointValue({
+        base: '30px',  // Меньше шрифт на маленьких экранах
+        sm: '50px', // Стандартный размер на больших экранах
+    });
+
     return (
         <Box>
             {user ? (
@@ -14,7 +33,9 @@ export const Header: React.FC<HeaderProps> = ({ user }) => {
                         <Link draggable={'false'} style={{ fontSize: 21, marginLeft: 10 }} to='/templates'>
                             <Icon justifySelf={'center'} alignSelf={'center'} boxSize={'45px'} as={AiFillHome}></Icon>
                         </Link>
-                        <Text draggable={'false'} fontWeight={'bold'} fontSize={50}>TemplatesApp</Text>
+                        {showLogo && (
+                            <Text draggable={'false'} fontWeight={'bold'} fontSize={50}>TemplatesApp</Text>
+                        )}
                         <Link draggable={'false'} style={{ fontSize: 21, marginRight: 10 }} to='/profile'>
                             <Stack direction={"row"}>
                                 <Text fontWeight={'medium'} alignSelf={'center'}>{user.name}</Text>
