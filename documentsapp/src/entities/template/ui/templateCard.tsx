@@ -25,13 +25,13 @@ export const TemplateCard: React.FC<TemplateCardProps> = React.memo(({
     });
     const trancuatedDescription = truncateText(template.description, 50)
     return (
-        <Box width={'100%'}>
+        <Box borderRadius={"md"} boxShadow={"md"} border={"2px solid"} borderColor={'gray.200'}  >
             <Link to={`/template/${template.id}`}>
                 <Card display={'flex'} variant={"elevated"}>
                     <CardHeader>
                         <Box className="flex items-center" >
                             <Stack direction={'column'}>
-                                <Image width={'100%'} height={'100%'} src={'../public/1.jpg'}></Image>
+                                <Image src={'../public/1.jpg'}></Image>
                                 <Heading marginLeft={2} title={template.name} data-tooltip-id="my-toolTip" size={'md'}>{template.name}</Heading>
                                 <Stack marginLeft={2} direction={'column'}>
                                     <Stack>
@@ -59,7 +59,6 @@ export const TemplateCard: React.FC<TemplateCardProps> = React.memo(({
                                         {onDelete && <Button onClick={() => onDelete(template.id)}>Удалить</Button>}
                                     </div>
                                 )}
-
                             </Stack>
                         </Flex>
                     </CardFooter>
