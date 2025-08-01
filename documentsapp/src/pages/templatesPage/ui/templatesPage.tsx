@@ -8,7 +8,11 @@ import { useSearchParams } from 'react-router-dom'
 import { TemplateFilters } from '@/features/templatesList/ui/templateFilters';
 
 const TemplatesPage: React.FC = () => {
-    const { data: templates, isLoading, isError, error } = useGetTemplatesQuery();
+    const { data: templates, isLoading, isError, error } = useGetTemplatesQuery(undefined, {
+        pollingInterval: 1000, // Опрашивать каждую секунду (для демо)
+        // Или использовать подписку:
+        refetchOnMountOrArgChange: true,
+    });
 
     const [statusFilter, setStatusFilter] = useState<'черновик' | 'опубликован' | 'all'>('all');
     const [inputValue, setInputValue] = useState('');
@@ -20,6 +24,7 @@ const TemplatesPage: React.FC = () => {
         query: debouncedSearchQuery,
         date: dateFilter,
     }
+
 
     const [searchParams, setSearchParams] = useSearchParams();
 
@@ -55,15 +60,20 @@ const TemplatesPage: React.FC = () => {
         }
 
         if (currentFilters.date) {
-            const filterDate = new Date(currentFilters.date);
-            result = result.filter(template => {
-                const templateDate = new Date(template.createdAt);
-                return (
-                    templateDate.getFullYear() === filterDate.getFullYear() &&
-                    templateDate.getMonth() === filterDate.getMonth() &&
-                    templateDate.getDate() === filterDate.getDate()
-                );
-            });
+            try {
+                const filterDate = new Date(currentFilters.date);
+                result = result.filter(template => {
+                    const templateDate = new Date(template.createdAt);
+                    return (
+                        templateDate.getFullYear() === filterDate.getFullYear() &&
+                        templateDate.getMonth() === filterDate.getMonth() &&
+                        templateDate.getDate() === filterDate.getDate()
+                    );
+                });
+            } catch (error) {
+                console.error('Ошибка при фильтрации по дате:', error)
+            }
+
         }
 
         return result;

@@ -1,5 +1,5 @@
+import { Spinner } from "@chakra-ui/react";
+
 export default function Loading(){
-    return <div>
-        <p>Loading...</p>
-    </div>
+    return <Spinner alignSelf={'center'} justifySelf={'center'}></Spinner>
 }

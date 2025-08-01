@@ -1,7 +1,7 @@
 import { createApi, fakeBaseQuery } from '@reduxjs/toolkit/query/react';
 import type { ITemplate } from '@/entities/template/model/types';
 
-const mockTemplates: ITemplate[] = [...Array(10)].map((_, i) => ({
+let mockTemplates: ITemplate[] = [...Array(10)].map((_, i) => ({
     id: `tpl-${i}`,
     name: `Шаблон №${i + 1}`,
     description: `Описание шаблона №${i + 1}`,
@@ -38,7 +38,21 @@ export const templateApi = createApi({
                 return newTemplate;
             },
         }),
+        deleteTemplate: builder.mutation<boolean, string>({
+            queryFn: (id) => {
+                try {
+                    // Создаем новый массив без удаляемого элемента
+                    const updatedTemplates = mockTemplates.filter(t => t.id !== id);
+                    mockTemplates = updatedTemplates; // Только если mockTemplates let
+                    console.log(mockTemplates);
+                    return { data: true };
+
+                } catch (error) {
+                    return { error };
+                }
+            },
+        }),
     }),
 })
 
-export const { useGetTemplatesQuery, useAddTemplateMutation, useGetTemplateByIdQuery } = templateApi;
+export const { useGetTemplatesQuery, useAddTemplateMutation, useGetTemplateByIdQuery, useDeleteTemplateMutation } = templateApi;

@@ -15,6 +15,7 @@ const getLocalStorage = (): IUser | null => {
     }
 }
 
+
 const initialState: AuthState = {
     user: getLocalStorage(),
     isLoading: false,
@@ -26,11 +27,13 @@ const authSlice = createSlice({
     initialState,
     reducers: {
         loginStart(state) {
+            localStorage.removeItem('user');
             state.isLoading = true;
             state.error = null;
         },
         loginSuccess(state, action: PayloadAction<IUser>) {
             state.user = action.payload;
+            localStorage.setItem('user', JSON.stringify(state.user))
             state.isLoading = false;
             state.error = null;
         },
@@ -41,9 +44,11 @@ const authSlice = createSlice({
         },
         logout(state) {
             state.user = null;
+            localStorage.removeItem('user');
         },
         profileUpdate(state, action: PayloadAction<IUser>) {
-            state.user = getLocalStorage();
+            state.user = action.payload;
+            localStorage.setItem('user', JSON.stringify(state.user))
             state.isLoading = false;
             state.error = null;
         }

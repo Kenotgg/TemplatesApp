@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { templateApi } from "@/pages/templatesPage/api/templatesApi";
 import authReducer from '@/app/auth/authSlice';
-import { authApi } from "@/pages/login/api/authApi";
+import { authApi } from "@/pages/login";
 
 export const store = configureStore({
     reducer: {

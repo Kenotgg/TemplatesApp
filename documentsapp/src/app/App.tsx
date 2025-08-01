@@ -1,6 +1,6 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import '@/app/styles/app.css';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { Box, Container, Flex } from '@chakra-ui/react';
 import { useSelector } from 'react-redux';
 import type { RootState } from '@/app/appStore';
@@ -15,8 +15,12 @@ const PageNotFoundPage = React.lazy(() => import('@/shared/ui/pageNotFound/pageN
 
 export default function App() {
     const user = useSelector((state: RootState) => state.auth.user);
-    return (    
-        <Box>
+    useEffect(() => {
+        console.log('Current user in LocalStorage:', localStorage.getItem('user'));
+        console.log('Current user:', user);
+    }, [user])
+    return (
+        <Box>   
             <Header user={user}></Header>
             <Box>
                 <Container minH={500} maxW="container.lg">
@@ -30,9 +34,7 @@ export default function App() {
                         </Routes>
                     </Suspense>
                 </Container>
-
             </Box>
-
         </Box>
 
     )

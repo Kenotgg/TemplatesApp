@@ -19,12 +19,6 @@ export const Header: React.FC<HeaderProps> = ({ user }) => {
         sm: true, // Показываем на маленьких экранах и больше
     });
 
-    // Размер шрифта логотипа
-    const logoFontSize = useBreakpointValue({
-        base: '30px',  // Меньше шрифт на маленьких экранах
-        sm: '50px', // Стандартный размер на больших экранах
-    });
-
     return (
         <Box>
             {user ? (

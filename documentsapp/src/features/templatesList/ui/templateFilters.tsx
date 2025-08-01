@@ -36,7 +36,7 @@ export const TemplateFilters: React.FC<ITemplateFiltersProps> = ({
     
     const stackWidth: any = useBreakpointValue({
         base: 180,
-        sm: 230,
+        sm: 250,
     })
 
 

@@ -47,21 +47,7 @@ export const TemplateCard: React.FC<TemplateCardProps> = React.memo(({
                                 </Stack>
                             </Stack>
                         </Box>
-
                     </CardHeader>
-                    <CardFooter className="flex justify-between items-center">
-                        <Flex justify="space-around" wrap="wrap">
-                            <Stack direction={'row'}>
-                                {(onEdit || onDelete || onDuplicate) && (
-                                    <div>
-                                        {onEdit && <Button onClick={() => onEdit(template.id)}>Изменить</Button>}
-                                        {onDuplicate && <Button onClick={() => onDuplicate(template.id)}>Дублировать</Button>}
-                                        {onDelete && <Button onClick={() => onDelete(template.id)}>Удалить</Button>}
-                                    </div>
-                                )}
-                            </Stack>
-                        </Flex>
-                    </CardFooter>
                 </Card>
             </Link>
         </Box >
