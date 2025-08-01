@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from 'react-router-dom';
 import { Box, Stack, Avatar, Text, Icon, useBreakpointValue } from '@chakra-ui/react';
 import { AiFillHome } from "react-icons/ai";
+import { truncateText } from "@/shared/lib/helpers/trancuateText";
 interface HeaderProps {
     user: any | null;
 }
@@ -18,7 +19,7 @@ export const Header: React.FC<HeaderProps> = ({ user }) => {
         base: false, // Скрываем на очень маленьких экранах
         sm: true, // Показываем на маленьких экранах и больше
     });
-
+    const nameText = truncateText(user.name, 15);
     return (
         <Box>
             {user ? (
@@ -32,7 +33,7 @@ export const Header: React.FC<HeaderProps> = ({ user }) => {
                         )}
                         <Link draggable={'false'} style={{ fontSize: 21, marginRight: 10 }} to='/profile'>
                             <Stack direction={"row"}>
-                                <Text fontWeight={'medium'} alignSelf={'center'}>{user.name}</Text>
+                                <Text fontWeight={'medium'} alignSelf={'center'}>{nameText}</Text>
                                 <Avatar></Avatar>
                             </Stack>
                         </Link>
