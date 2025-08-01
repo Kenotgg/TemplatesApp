@@ -37,6 +37,7 @@ export const authApi = createApi({
         login: builder.mutation<IUser, { email: string; password: string }>({
             queryFn: async (credentials) => {
                 try {
+
                     const user = await fakeLogin(credentials); // Вызываем вашу функцию fakeLogin
                     if (user) {
                         return { data: user }; // Возвращаем объект { data: user }

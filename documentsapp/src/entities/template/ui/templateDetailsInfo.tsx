@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { useGetTemplateByIdQuery, useDeleteTemplateMutation } from '@/pages/templatesPage/api/templatesApi';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useGetTemplateByIdQuery, useDeleteTemplateMutation, useDuplicateTemplateMutation } from '@/pages/templatesPage/api/templatesApi';
 import Loading from '@/shared/ui/spinner/Loading';
 import TemplateEditForm from '@/features/editTemplate/ui/templateEditForm/templateEditForm';
 import Modal from '@/shared/ui/modal/ui/modal';
@@ -11,9 +11,10 @@ const TemplateDetailsInfo: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { data: template, isLoading, isError, error, refetch } = useGetTemplateByIdQuery(id!);
   const [deleteTemplate] = useDeleteTemplateMutation();
+  const [duplicateTemplate] = useDuplicateTemplateMutation();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [updatedTemplate, setUpdatedTemplate] = useState<ITemplate | undefined>(undefined); // Инициализируем undefined
-
+  const navigate = useNavigate();
 
   const handleDelete = async () => {
     if (template) {
@@ -22,11 +23,24 @@ const TemplateDetailsInfo: React.FC = () => {
         const result = await deleteTemplate(template.id).unwrap();
         console.log(result ? "Успешно удалено" : "Шаблон не найден");
         await refetch();
+        navigate('/templates'); // Переход к списку после удаления
       } catch (error) {
         console.error("Ошибка:", error);
       }
     }
 
+  };
+
+  const handleDuplicate = async () => {
+    try {
+      if (template) {
+        const result = await duplicateTemplate(template.id).unwrap();
+        console.log("Дубликат создан:", result);
+        await refetch(); // Обновляем список
+      }
+    } catch (error) {
+      console.error("Ошибка дублирования:", error);
+    }
   };
 
   useEffect(() => {
@@ -110,7 +124,7 @@ const TemplateDetailsInfo: React.FC = () => {
               </Stack>
             </Stack>
             <Button fontSize={'24'} color={'white'} bg={'blue.400'} onClick={handleOpenModal}>Изменить</Button>
-            <Button fontSize={'24'} color={'white'} bg={'orange.400'} onClick={handleOpenModal}>Дублировать</Button>
+            <Button fontSize={'24'} color={'white'} bg={'orange.400'} onClick={handleDuplicate}>Дублировать</Button>
             <Button fontSize={'24'} color={'white'} bg={'red.500'} onClick={handleDelete}>Удалить</Button>
           </Stack>
         </Stack>

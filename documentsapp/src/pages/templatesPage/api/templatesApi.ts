@@ -52,7 +52,33 @@ export const templateApi = createApi({
                 }
             },
         }),
+        duplicateTemplate: builder.mutation<ITemplate, string>({
+            queryFn: (id) => {
+                try {
+                    // Находим оригинальный шаблон
+                    const original = mockTemplates.find(t => t.id === id);
+                    if (!original) {
+                        return { error: { status: 404, data: "Template not found" } };
+                    }
+                    const newId = String(Math.random().toString(36).slice(2, 9));
+                    // Создаем дубликат с новым ID и датами
+                    const duplicate: ITemplate = {
+                        ...original,
+                        id: newId,
+                        createdAt: new Date().toISOString(),
+                        updatedAt: new Date().toISOString(),
+                        name: `${original.name} (copy)`, // Добавляем пометку
+                    };
+
+                    mockTemplates = [...mockTemplates, duplicate]; // Иммутабельное добавление
+
+                    return { data: duplicate };
+                } catch (error) {
+                    return { error: { status: 500, data: "Duplication failed" } };
+                }
+            },
+        }),
     }),
 })
 
-export const { useGetTemplatesQuery, useAddTemplateMutation, useGetTemplateByIdQuery, useDeleteTemplateMutation } = templateApi;
+export const { useGetTemplatesQuery, useAddTemplateMutation, useGetTemplateByIdQuery, useDeleteTemplateMutation, useDuplicateTemplateMutation } = templateApi;
