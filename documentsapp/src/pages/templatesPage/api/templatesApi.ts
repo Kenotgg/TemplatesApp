@@ -1,7 +1,7 @@
 import { createApi, fakeBaseQuery } from '@reduxjs/toolkit/query/react';
-import type { ITemplate } from '@/entities/template/model/types';
+import type { ITemplate } from '@/entities/template';
 
-const mockTemplates: ITemplate[] = [...Array(10)].map((_, i) => ({
+let mockTemplates: ITemplate[] = [...Array(10)].map((_, i) => ({
     id: `tpl-${i}`,
     name: `Шаблон №${i + 1}`,
     description: `Описание шаблона №${i + 1}`,
@@ -38,7 +38,46 @@ export const templateApi = createApi({
                 return newTemplate;
             },
         }),
+        deleteTemplate: builder.mutation<boolean, string>({
+            queryFn: (id) => {
+                try {
+                    const updatedTemplates = mockTemplates.filter(t => t.id !== id);
+                    mockTemplates = updatedTemplates;
+                    console.log(mockTemplates);
+                    return { data: true };
+
+                } catch (error) {
+                    return { error };
+                }
+            },
+        }),
+        duplicateTemplate: builder.mutation<ITemplate, string>({
+            queryFn: (id) => {
+                try {
+
+                    const original = mockTemplates.find(t => t.id === id);
+                    if (!original) {
+                        return { error: { status: 404, data: "Template not found" } };
+                    }
+                    const newId = String(Math.random().toString(36).slice(2, 9));
+
+                    const duplicate: ITemplate = {
+                        ...original,
+                        id: newId,
+                        createdAt: new Date().toISOString(),
+                        updatedAt: new Date().toISOString(),
+                        name: `${original.name} (copy)`,
+                    };
+
+                    mockTemplates = [...mockTemplates, duplicate];
+
+                    return { data: duplicate };
+                } catch (error) {
+                    return { error: { status: 500, data: "Duplication failed" } };
+                }
+            },
+        }),
     }),
 })
 
-export const { useGetTemplatesQuery, useAddTemplateMutation, useGetTemplateByIdQuery } = templateApi;
+export const { useGetTemplatesQuery, useAddTemplateMutation, useGetTemplateByIdQuery, useDeleteTemplateMutation, useDuplicateTemplateMutation } = templateApi;

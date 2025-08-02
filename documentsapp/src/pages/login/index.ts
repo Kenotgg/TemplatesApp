@@ -1,2 +1,2 @@
 export { authApi } from "./api/authApi"
-export {default as LoginForm} from "./ui/loginForm"
+export { LoginForm as default } from "./ui/loginForm"

@@ -1,4 +1,4 @@
-import { ProfilePage as ProfileInfo } from "@/entities/user";
+import { ProfileInfo } from "@/entities/user";
 
 export const ProfilePage: React.FC = () => {
     return (

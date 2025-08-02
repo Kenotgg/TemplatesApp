@@ -1,24 +1,69 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { useGetTemplateByIdQuery } from '@/pages/templatesPage/api/templatesApi';
-import Loading from '@/shared/ui/spinner/Loading';
-import TemplateEditForm from '@/features/editTemplate/ui/templateEditForm/templateEditForm';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useGetTemplateByIdQuery, useDeleteTemplateMutation, useDuplicateTemplateMutation } from '@/pages/templatesPage/api/templatesApi';
+import { Button, Image, Stack, Text, useBreakpointValue } from '@chakra-ui/react';
+import type { ITemplate } from '../model/template';
+import Loading from '@/shared/ui/spinner/Spinner';
+import TemplateEditForm from '@/features/editTemplate';
 import Modal from '@/shared/ui/modal/ui/modal';
-import type { ITemplate } from '../model/types';
-import { Button, Image, Spacer, Stack, Text } from '@chakra-ui/react';
 
-const TemplateDetailsInfo: React.FC = () => {
+export const TemplateDetailsInfo: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const { data: template, isLoading, isError, error } = useGetTemplateByIdQuery(id!);
-
+  const { data: template, isLoading, isError, error, refetch } = useGetTemplateByIdQuery(id!);
+  const [deleteTemplate] = useDeleteTemplateMutation();
+  const [duplicateTemplate] = useDuplicateTemplateMutation();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [updatedTemplate, setUpdatedTemplate] = useState<ITemplate | undefined>(undefined); // Инициализируем undefined
+  const navigate = useNavigate();
+
+  const handleDelete = async () => {
+    if (template) {
+      console.log("Удаляем:", template.id);
+      try {
+        const result = await deleteTemplate(template.id).unwrap();
+        console.log(result ? "Успешно удалено" : "Шаблон не найден");
+        await refetch();
+        navigate('/templates'); // Переход к списку после удаления
+      } catch (error) {
+        console.error("Ошибка:", error);
+      }
+    }
+
+  };
+
+  const handleDuplicate = async () => {
+    try {
+      if (template) {
+        const result = await duplicateTemplate(template.id).unwrap();
+        console.log("Дубликат создан:", result);
+        await refetch(); // Обновляем список
+      }
+    } catch (error) {
+      console.error("Ошибка дублирования:", error);
+    }
+  };
 
   useEffect(() => {
     if (template) {
       setUpdatedTemplate(template); // Обновляем, когда данные загружены
+
     }
   }, [template]);
+
+
+  const formatedCreatedAt = template?.createdAt
+    ? new Date(template.createdAt).toLocaleDateString('ru-RU', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+    })
+    : 'Дата загружается...'; // Или любое другое значение по умолчанию
+
+
+  const stackOrientation: any = useBreakpointValue({
+    base: 'column',
+    md: 'row',
+  })
 
   const handleOpenModal = () => {
     console.log("Try to open modal template is ", template);
@@ -38,6 +83,8 @@ const TemplateDetailsInfo: React.FC = () => {
     handleCloseModal();
   };
 
+
+
   if (isLoading) {
     return <Loading />;
   }
@@ -50,32 +97,48 @@ const TemplateDetailsInfo: React.FC = () => {
     return <div>Данного темплейта не существует...</div>;
   }
 
+
+
+
   return (
-
-    <Stack>
-      <Stack>
-        <Text>{template.name}</Text>
-        <Spacer></Spacer>
+    <Stack mb={5} mt={5} border={"2px solid"} alignSelf={'center'} borderColor={'gray.200'} borderRadius={"md"} boxShadow={"md"} >
+      <Stack ml={3} mr={3} mb={3} overflow={'auto'} alignSelf={'center'} direction={'column'}>
+        <Text fontSize={'32'} fontWeight={'bold'}>{template.name}</Text>
+        <Stack direction={stackOrientation}>
+          <Image mr={'5'} shadow={'base'} alignSelf={'left'} width={'50%'} height={'50%'} src={'../public/1.jpg'}></Image>
+          <Stack direction={'column'}>
+            <Stack direction={'column'}>
+              <Stack direction={stackOrientation}>
+                <Text fontSize={'24'} fontWeight={'bold'}>Статус:</Text>
+                <Text fontSize={'24'}>{template.status}</Text>
+              </Stack>
+              <Stack direction={stackOrientation}>
+                <Text fontSize={'24'} fontWeight={'bold'}>Автор публикации:</Text>
+                <Text fontSize={'24'}>{template.author}</Text>
+              </Stack>
+              <Stack direction={stackOrientation}>
+                <Text fontSize={'24'} fontWeight={'bold'}>Дата публикации:</Text>
+                <Text fontSize={'24'}>{formatedCreatedAt}</Text>
+              </Stack>
+            </Stack>
+            <Button fontSize={'24'} color={'white'} bg={'blue.400'} onClick={handleOpenModal}>Изменить</Button>
+            <Button fontSize={'24'} color={'white'} bg={'orange.400'} onClick={handleDuplicate}>Дублировать</Button>
+            <Button fontSize={'24'} color={'white'} bg={'red.500'} onClick={handleDelete}>Удалить</Button>
+          </Stack>
+        </Stack>
+        <Stack direction={'column'}>
+          <Text fontSize={'28'} fontWeight={'bold'}>Описание:</Text>
+          <Text fontSize={'24'}>{template.description}</Text>
+        </Stack>
       </Stack>
-      
-      <Stack direction={'row'}>
-        <Image width={'30%'} height={'30%'} src={'../public/1.jpg'}></Image>
-        <p>{template.description}</p>
-        <Button bg={'blue.400'} onClick={handleOpenModal}>Изменить</Button>
-      </Stack>
-
-      <Stack direction={'row'}>
-        <p>Статус: {template.status}</p>
-        <p>Автор публикации: {template.author}</p>
-      </Stack>
-
       {updatedTemplate && (
         <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
           <TemplateEditForm template={updatedTemplate as ITemplate} onSave={handleSaveTemplate} onCancel={handleCloseModal} />
         </Modal>
       )}
+
     </Stack>
   );
 };
-export default TemplateDetailsInfo;
+
 

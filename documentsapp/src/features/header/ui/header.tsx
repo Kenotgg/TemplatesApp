@@ -1,21 +1,43 @@
 import React from "react";
-import { Routes, Route, Link } from 'react-router-dom';
-import { Box, Stack, Spacer } from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
+import { Box, Stack, Avatar, Text, Icon, useBreakpointValue } from '@chakra-ui/react';
+import { AiFillHome } from "react-icons/ai";
+
 interface HeaderProps {
     user: any | null;
 }
+
 export const Header: React.FC<HeaderProps> = ({ user }) => {
+
+    const showLogo = useBreakpointValue({
+        base: false,
+        sm: true,
+    });
+
     return (
         <Box>
             {user ? (
-                <Stack direction={'row'}>
-                    <Link style={{ marginRight: 5 }} to='/templates'>Главная</Link>
-                    <Spacer></Spacer>
-                    <Link style={{ marginRight: 5 }} to='/profile'>{user.name}</Link>
-                </Stack>
+                <Box userSelect={'none'} bgGradient='linear(to-r, blue.400, blue.500)' margin={0} top={0} height={'80px'} position={'sticky'} width={'100%'} color={'white'}>
+                    <Stack ml={'2'} mr={'2'} display={'flex'} alignItems={'center'} justifyItems={'center'} justifyContent={'space-between'} direction={'row'}>
+                        <Link draggable={'false'} style={{ fontSize: 21, marginLeft: 10 }} to='/templates'>
+                            <Icon justifySelf={'center'} alignSelf={'center'} boxSize={'45px'} as={AiFillHome}></Icon>
+                        </Link>
+                        {showLogo && (
+                            <Text draggable={'false'} fontWeight={'bold'} fontSize={50}>TemplatesApp</Text>
+                        )}
+                        <Link draggable={'false'} style={{ fontSize: 21, marginRight: 10 }} to='/profile'>
+                            <Stack direction={"row"}>
+                                <Text fontWeight={'medium'} alignSelf={'center'}>{user.name}</Text>
+                                <Avatar></Avatar>
+                            </Stack>
+                        </Link>
+                    </Stack>
+                </Box>
             ) : (
-                <Link style={{ marginRight: 5 }} to='/login'>Войти</Link>
+                <></>
             )}
         </Box>
+
     );
 }
+export type { HeaderProps };

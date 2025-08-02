@@ -1,1 +1,1 @@
-export {default as TemplateEditForm} from './ui/templateEditForm/templateEditForm';
+export { TemplateEditForm as default} from './ui/templateEditForm/templateEditForm';

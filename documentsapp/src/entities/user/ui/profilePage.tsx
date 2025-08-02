@@ -1,22 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAppDispatch } from '@/app/hooks/hooks';
 import { useUserData } from '@/app/hooks/hooks';
 import { logout } from '@/app/auth/authSlice';
 import EditProfileForm from '@/features/editProfile/ui/editProfileForm';
 import Modal from '@/shared/ui/modal/ui/modal';
+import { Heading, Stack, Button, Text, Box } from '@chakra-ui/react';
+import Loading from '@/shared/ui/spinner/Spinner';
+import { useLocation } from 'react-router-dom';
 
-
-
-const ProfilePage: React.FC = () => {
+const ProfileInfo: React.FC = () => {
     const { user } = useUserData();
     const dispatch = useAppDispatch();
     const [isModalOpen, setIsModalOpen] = useState(false);
 
+    const [isLoadingPage, setIsLoadingPage] = useState(false);
+    const location = useLocation();
+
+    useEffect(() => {
+        setIsLoadingPage(false);
+    }, [location]);
+
     if (!user) {
-        return <div>Загрузка...</div>; // Отображаем индикатор загрузки, пока данные загружаются
+        return <Loading />;
     }
 
     const handleLogout = () => {
+        setIsLoadingPage(true);
         dispatch(logout())
     }
 
@@ -28,33 +37,32 @@ const ProfilePage: React.FC = () => {
         setIsModalOpen(false);
     }
 
+    if (isLoadingPage) {
+        return <Loading />;
+    }
 
     return (
-        <div className="profile-container">
-            <h1>Профиль пользователя</h1>
-
-            <div className="profile-item">
-                <span className="profile-label">ID:</span>
-                <span>{user.id}</span>
-            </div>
-
-            <div className="profile-item">
-                <span className="profile-label">Email:</span>
-                <span>{user.email}</span>
-            </div>
-
-            <div className="profile-item">
-                <span className="profile-label">Имя:</span>
-                <span>{user.name}</span>
-            </div>
-            <button onClick={handleLogout}>Выйти</button>
-            <button onClick={handleOpenModal}>Edit</button>
+        <Box overflow={'auto'} mb={5} mt={5} borderRadius={"md"} boxShadow={"md"} border={'2px solid'} borderColor={'gray.200'} shadow={'base'} alignSelf={'center'}>
+            <Stack ml={2} mr={2} mb={2} direction={'column'}>
+                <Heading>{user.name}</Heading>
+                <Box textAlign='left'>
+                    <Stack fontSize={'24'} direction={'row'}>
+                        <Text fontWeight={'medium'}>Email:</Text>
+                        <Text>{user.email}</Text>
+                    </Stack>
+                    <Stack mt={2} direction={'row'}>
+                        <Button color={'white'} bg={'red.500'} onClick={handleLogout}>Выйти</Button>
+                        <Button color={'white'} bg={'blue.400'} onClick={handleOpenModal}>Изменить</Button>
+                    </Stack>
+                </Box>
+            </Stack>
 
             <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
                 <EditProfileForm user={user} onClose={handleCloseModal}></EditProfileForm>
+
             </Modal>
-        </div>
+        </Box>
     );
 };
 
-export default ProfilePage;
+export default ProfileInfo;
