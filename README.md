@@ -98,15 +98,11 @@ export type { ITemplate } from './model/template';
 export { TemplateCard } from './ui/templateCard';
 export { TemplateDetailsInfo as default } from './ui/templateDetailsInfo';
 ```
+
 #### 3. Однонаправленные зависимости
 ```bash
 app → pages → features → entities → shared
 ```
-Результат проверки при помощи команды:
-```bash
-npx madge --extensions ts,tsx --circular ./src
-```
-<img width="483" height="56" alt="image" src="https://github.com/user-attachments/assets/1ce210c6-8e68-4efb-ac15-62114bc232cd" />
 
 #### 4. Гибкость исключений ⚠️
 Допустимые исключения:
@@ -114,7 +110,11 @@ npx madge --extensions ts,tsx --circular ./src
 - Использование Chakra UI в компонентах (для MVP).
 - Смягчение: Документировано в коде как // FSD-ИСКЛЮЧЕНИЕ.
 
-#### Несоблюдённые принципы
+#### 5. Изоляция модулей(Частично)
+##### проблемы:
+- Прямые импорты Chakra UI
+- Некоторые компоненты стоит вынести
+- 
 ##### Полная независимость UI ❌
 Компоненты используют Chakra UI напрямую вместо абстракций через shared/ui.
 ##### Строгая изоляция состояния ❌
