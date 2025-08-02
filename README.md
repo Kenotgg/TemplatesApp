@@ -98,17 +98,14 @@ export type { ITemplate } from './model/template';
 export { TemplateCard } from './ui/templateCard';
 export { TemplateDetailsInfo as default } from './ui/templateDetailsInfo';
 ```
-#### 3. Контроль зависимостей
+#### 3. Однонаправленные зависимости
 ```bash
 app → pages → features → entities → shared
 ```
-
-#### 4. Однонаправленные зависимости
 Результат проверки при помощи команды:
 ```bash
 npx madge --extensions ts,tsx --circular ./src
 ```
-
 <img width="483" height="56" alt="image" src="https://github.com/user-attachments/assets/1ce210c6-8e68-4efb-ac15-62114bc232cd" />
 
 #### 4. Гибкость исключений ⚠️
