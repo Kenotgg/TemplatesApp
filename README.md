@@ -93,9 +93,10 @@ src/
 #### 2. Публичный API
 Каждый модуль предоставляет явный интерфейс через index.ts:
 ```bash
-// features/auth/index.ts
-export { LoginForm } from './ui/LoginForm';
-export { authApi } from './api/authApi';
+//entities/template/index.ts
+export type { ITemplate } from './model/template';
+export { TemplateCard } from './ui/templateCard';
+export { TemplateDetailsInfo as default } from './ui/templateDetailsInfo';
 ```
 #### 3. Контроль зависимостей
 ```bash
@@ -111,10 +112,9 @@ app → pages → features → entities → shared
 - Смягчение: Документировано в коде как // FSD-ИСКЛЮЧЕНИЕ.
 
 #### Несоблюдённые принципы
-#####Полная независимость UI ❌
+##### Полная независимость UI ❌
 Компоненты используют Chakra UI напрямую вместо абстракций через shared/ui.
-
-#####Строгая изоляция состояния ❌
+##### Строгая изоляция состояния ❌
 Модуль templates зависит от моковых данных в памяти, а не от внешнего сервиса.
 
 
