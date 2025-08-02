@@ -11,7 +11,7 @@ import { Header } from '@/features/header';
 const LoginForm = React.lazy(() => import('@/pages/login'));
 const ProfilePage = React.lazy(() => import('@/pages/profile'));
 const TemplatesPage = React.lazy(() => import('@/pages/templatesPage'));
-const TemplateDetailsInfo = React.lazy(() => import('@/entities/template'));
+const TemplateDetailsInfo = React.lazy(() => import('@/entities/template'));  //TODO - заменить обратный импорт на импорт из pages
 const PageNotFoundPage = React.lazy(() => import('@/shared/ui/pageNotFound/pageNotFoundPage'));
 
 export default function App() {

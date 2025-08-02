@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useLoginMutation } from '@/pages/login//api/authApi';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+// FSD-ИСКЛЮЧЕНИЕ: Прямой импорт слайса из-за ограничений RTK Query
 import { loginSuccess } from '@/app/auth/authSlice';
 
 interface LoginFormValues {
@@ -21,7 +22,7 @@ export const LoginForm: React.FC = () => {
         try {
             const result = await login({ email: data.email, password: data.password }).unwrap();
             dispatch(loginSuccess(result));
-            navigate('/profile');
+            navigate('/profile'); // TODO: Вынести в колбэк
         } catch (err: any) {
             console.error('Login failed', err);
         }
@@ -36,9 +37,9 @@ export const LoginForm: React.FC = () => {
                 <Stack>
                     <Box>
                         <Box textAlign={'left'}>
-                             <Text fontWeight={'medium'}>Email:</Text>
+                            <Text fontWeight={'medium'}>Email:</Text>
                         </Box>
-                       
+
                         <Input
                             width={200}
                             placeholder='Введите Email...'
@@ -56,7 +57,7 @@ export const LoginForm: React.FC = () => {
 
                     <Box>
                         <Box textAlign={'left'}>
-                             <Text fontWeight={'medium'}>Пароль:</Text>
+                            <Text fontWeight={'medium'}>Пароль:</Text>
                         </Box>
                         <Input
                             width={200}
@@ -71,7 +72,7 @@ export const LoginForm: React.FC = () => {
                     </Box>
                     {errors.password && <span><Box marginBottom={1} height={2}><Text color={'red.500'}>{errors.password.message}</Text></Box></span>}
                 </Stack>
-                <Button  width={200} color={'white'} bg={'blue.600'} mt={5} type="submit">ВОЙТИ</Button>
+                <Button width={200} color={'white'} bg={'blue.600'} mt={5} type="submit">ВОЙТИ</Button>
             </form>
         </Box>
 

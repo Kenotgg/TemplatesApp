@@ -4,24 +4,24 @@ import { useUserData } from '@/app/hooks/hooks';
 import { logout } from '@/app/auth/authSlice';
 import EditProfileForm from '@/features/editProfile/ui/editProfileForm';
 import Modal from '@/shared/ui/modal/ui/modal';
-import { Heading, Stack, Button, Text, Box, IconButton } from '@chakra-ui/react';
+import { Heading, Stack, Button, Text, Box } from '@chakra-ui/react';
 import Loading from '@/shared/ui/spinner/Spinner';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 const ProfileInfo: React.FC = () => {
     const { user } = useUserData();
     const dispatch = useAppDispatch();
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const [isLoadingPage, setIsLoadingPage] = useState(false); // Локальное состояние загрузки
+    const [isLoadingPage, setIsLoadingPage] = useState(false);
     const location = useLocation();
 
     useEffect(() => {
-        setIsLoadingPage(false); // Сбрасываем состояние загрузки при изменении location
+        setIsLoadingPage(false);
     }, [location]);
 
     if (!user) {
-        return <Loading />; // Отображаем индикатор загрузки, пока данные загружаются
+        return <Loading />;
     }
 
     const handleLogout = () => {

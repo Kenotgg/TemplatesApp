@@ -65,8 +65,6 @@ export const TemplateDetailsInfo: React.FC = () => {
     md: 'row',
   })
 
-
-
   const handleOpenModal = () => {
     console.log("Try to open modal template is ", template);
     if (updatedTemplate) {

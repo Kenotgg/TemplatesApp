@@ -1,9 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import type { ITemplate } from "@/entities/template/model/template";
-import { Image, Box, Button, Card, CardFooter, CardHeader, Flex, Heading, Stack, Stat, StatLabel, Text } from "@chakra-ui/react";
+import type { ITemplate } from "@/entities/template";
+import { Image, Box, Card, CardHeader, Heading, Stack, Text } from "@chakra-ui/react";
 import { truncateText } from "@/shared/lib/helpers/trancuateText";
-
 
 interface TemplateCardProps {
     template: ITemplate;
@@ -14,10 +13,8 @@ interface TemplateCardProps {
 
 export const TemplateCard: React.FC<TemplateCardProps> = React.memo(({
     template,
-    onEdit,
-    onDelete,
-    onDuplicate,
 }) => {
+    //TODO вынести форматирование в shared
     const formatedCreatedAt = new Date(template.createdAt).toLocaleDateString('ru-RU', {
         year: 'numeric',
         month: 'short',
