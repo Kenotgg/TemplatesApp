@@ -16,8 +16,8 @@ DocumentsApp - это Single Page Application веб приложение нап
 <img width="349" height="134" alt="Снимок экрана 2025-07-19 003802" src="https://github.com/user-attachments/assets/51d0367b-703b-4727-aa55-9e0ae52745d8" />
 
 ## Использованные библиотеки
-
-- @chakra-ui/react@3.22.0
+- @chakra-ui/icons@2.2.4
+- @chakra-ui/react@2.10.9
 - @emotion/react@11.14.0
 - @emotion/styled@11.14.1
 - @eslint/js@9.31.0
@@ -34,7 +34,7 @@ DocumentsApp - это Single Page Application веб приложение нап
 - eslint-plugin-react-hooks@5.2.0
 - eslint-plugin-react-refresh@0.4.20
 - eslint@9.31.0
-- framer-motion@12.23.9
+- framer-motion@12.23.12
 - globals@16.3.0
 - next-themes@0.4.6
 - react-datepicker@8.4.0
@@ -54,6 +54,7 @@ DocumentsApp - это Single Page Application веб приложение нап
 
 ## Соблюдение принципов Feature-Sliced Design (FSD)
 1. Чёткое разделение по слоям ✅
+
 app/ — инициализация приложения (роутер, провайдеры)
 
 pages/ — композиция фич в страницы (LoginPage, TemplatesPage)
