@@ -21,10 +21,11 @@
 
 ### Быстрый старт
 1. **Клонируйте репозиторий**  
-   ```bash
-   git clone https://github.com/ваш-репозиторий.git
-   ```
-   Или используйте кнопку "Code" в GitHub
+```bash
+git clone https://github.com/TemplatesApp
+```
+Или используйте кнопку "Code" в GitHub
+
 2. **Установите зависимости**
 ```bash
 npm install
