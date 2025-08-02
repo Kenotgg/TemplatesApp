@@ -11,7 +11,7 @@ interface LoginFormValues {
     password: string;
 }
 
-const LoginForm: React.FC = () => {
+export const LoginForm: React.FC = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<LoginFormValues>();
     const [login, { isLoading, isError, error }] = useLoginMutation();
     const navigate = useNavigate();
@@ -77,5 +77,3 @@ const LoginForm: React.FC = () => {
 
     );
 };
-
-export default LoginForm;

@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import type { IUser } from "@/entities/user/model/user";
+import type { IUser } from "@/entities/user";
 
 interface AuthState {
     user: IUser | null;
@@ -14,7 +14,6 @@ const getLocalStorage = (): IUser | null => {
         return null;
     }
 }
-
 
 const initialState: AuthState = {
     user: getLocalStorage(),

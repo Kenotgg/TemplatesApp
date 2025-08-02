@@ -1,9 +1,9 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Box, Heading, Stack, Text, Input, Button} from '@chakra-ui/react';
+import { Box, Heading, Stack, Text, Input, Button } from '@chakra-ui/react';
 import { useAppDispatch } from '@/app/hooks/hooks';
-import { loginSuccess as login, profileUpdate } from '@/app/auth/authSlice'; // <- Correct action
-import type { IUser } from '@/entities/user/model/user';
+import { profileUpdate } from '@/app/auth/authSlice';
+import type { IUser } from '@/entities/user';
 import styles from './Modal.module.scss';
 
 interface EditProfileFormProps {
@@ -37,7 +37,8 @@ const EditProfileForm: React.FC<EditProfileFormProps> = ({ user, onClose }) => {
             ...user,
             ...data,
         };
-        console.log("afterUpdating:", updatedUser);
+
+        console.log("after updating user data:", updatedUser);
 
         dispatch(profileUpdate(updatedUser));
         localStorage.setItem('user', JSON.stringify(updatedUser));
@@ -66,7 +67,7 @@ const EditProfileForm: React.FC<EditProfileFormProps> = ({ user, onClose }) => {
                     <Button color={'white'} bg={'red.500'} mr={'2'} type="button" onClick={onClose} className={styles.cancelButton}>
                         Отмена
                     </Button>
-                    <Button color={'white'}  bg={'blue.400'} type="submit" className={styles.submitButton}>
+                    <Button color={'white'} bg={'blue.400'} type="submit" className={styles.submitButton}>
                         Сохранить
                     </Button>
                 </Box>

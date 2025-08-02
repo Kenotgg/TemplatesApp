@@ -1,3 +1,3 @@
-export type { ITemplate } from './model/types';
+export type { ITemplate } from './model/template';
 export { TemplateCard } from './ui/templateCard';
-export { default as TemplateDetailsInfo } from './ui/templateDetailsInfo';
+export { TemplateDetailsInfo as default } from './ui/templateDetailsInfo';

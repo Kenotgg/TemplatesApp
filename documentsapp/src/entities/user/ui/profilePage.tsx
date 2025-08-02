@@ -5,10 +5,10 @@ import { logout } from '@/app/auth/authSlice';
 import EditProfileForm from '@/features/editProfile/ui/editProfileForm';
 import Modal from '@/shared/ui/modal/ui/modal';
 import { Heading, Stack, Button, Text, Box, IconButton } from '@chakra-ui/react';
-import Loading from '@/shared/ui/spinner/Loading';
+import Loading from '@/shared/ui/spinner/Spinner';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-const ProfilePage: React.FC = () => {
+const ProfileInfo: React.FC = () => {
     const { user } = useUserData();
     const dispatch = useAppDispatch();
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -65,4 +65,4 @@ const ProfilePage: React.FC = () => {
     );
 };
 
-export default ProfilePage;
+export default ProfileInfo;

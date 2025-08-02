@@ -1,16 +1,16 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import { useGetTemplatesQuery } from '@/pages/templatesPage/api/templatesApi';
-import Loading from '@/shared/ui/spinner/Loading';
-import { TemplatesList } from '@/features/templatesList/ui/templatesList';
 import { Stack } from '@chakra-ui/react';
 import useDebounce from '@/app/hooks/useDebounce'
+import Loading from '@/shared/ui/spinner/Spinner';
+import { TemplatesList } from '@/features/templatesList/ui/templatesList';
 import { useSearchParams } from 'react-router-dom'
 import { TemplateFilters } from '@/features/templatesList/ui/templateFilters';
 
-const TemplatesPage: React.FC = () => {
+export const TemplatesPage: React.FC = () => {
+
     const { data: templates, isLoading, isError, error } = useGetTemplatesQuery(undefined, {
-        pollingInterval: 1000, // Опрашивать каждую секунду (для демо)
-        // Или использовать подписку:
+        pollingInterval: 1000,
         refetchOnMountOrArgChange: true,
     });
 
@@ -18,15 +18,13 @@ const TemplatesPage: React.FC = () => {
     const [inputValue, setInputValue] = useState('');
     const debouncedSearchQuery = useDebounce(inputValue, 500);
     const [dateFilter, setDateFilter] = useState<string | null>(null);
-
+    const [searchParams, setSearchParams] = useSearchParams();
+    
     const currentFilters = {
         status: statusFilter,
         query: debouncedSearchQuery,
         date: dateFilter,
     }
-
-
-    const [searchParams, setSearchParams] = useSearchParams();
 
     //Обновление URL при изменении фильтров
     useEffect(() => {
@@ -44,7 +42,6 @@ const TemplatesPage: React.FC = () => {
 
     }, [statusFilter, debouncedSearchQuery, dateFilter, setSearchParams]);
 
-    //Фильтрация шаблонов
     const filteredTemplates = useMemo(() => {
         if (!templates) return [];
 
@@ -103,4 +100,3 @@ const TemplatesPage: React.FC = () => {
         </Stack>
     )
 }
-export default TemplatesPage;

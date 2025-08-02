@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import type { ITemplate } from "@/entities/template/model/types";
+import type { ITemplate } from "@/entities/template/model/template";
 import { Image, Box, Button, Card, CardFooter, CardHeader, Flex, Heading, Stack, Stat, StatLabel, Text } from "@chakra-ui/react";
 import { truncateText } from "@/shared/lib/helpers/trancuateText";
 
@@ -38,11 +38,11 @@ export const TemplateCard: React.FC<TemplateCardProps> = React.memo(({
                                         <Text>{trancuatedDescription}</Text>
                                         <Text>Статус: {template.status}</Text>
                                     </Stack>
-                                    <Text>
+                                    <Box>
                                         <Text fontSize="sm">
                                             Создан: {formatedCreatedAt}
                                         </Text>
-                                    </Text>
+                                    </Box>
 
                                 </Stack>
                             </Stack>

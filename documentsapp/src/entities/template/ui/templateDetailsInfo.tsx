@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useGetTemplateByIdQuery, useDeleteTemplateMutation, useDuplicateTemplateMutation } from '@/pages/templatesPage/api/templatesApi';
-import Loading from '@/shared/ui/spinner/Loading';
-import TemplateEditForm from '@/features/editTemplate/ui/templateEditForm/templateEditForm';
-import Modal from '@/shared/ui/modal/ui/modal';
-import type { ITemplate } from '../model/types';
 import { Button, Image, Stack, Text, useBreakpointValue } from '@chakra-ui/react';
+import type { ITemplate } from '../model/template';
+import Loading from '@/shared/ui/spinner/Spinner';
+import TemplateEditForm from '@/features/editTemplate';
+import Modal from '@/shared/ui/modal/ui/modal';
 
-const TemplateDetailsInfo: React.FC = () => {
+export const TemplateDetailsInfo: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { data: template, isLoading, isError, error, refetch } = useGetTemplateByIdQuery(id!);
   const [deleteTemplate] = useDeleteTemplateMutation();
@@ -142,5 +142,5 @@ const TemplateDetailsInfo: React.FC = () => {
     </Stack>
   );
 };
-export default TemplateDetailsInfo;
+
 

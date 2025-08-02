@@ -1,9 +1,9 @@
-// src/entities/auth/api/authApi.ts
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import type { IUser } from '@/entities/user/model/user';
+import type { IUser } from '@/entities/user';
 import { logout } from '@/app/auth/authSlice';
 import { type AppDispatch } from '@/app/appStore';
 import { profileUpdate } from '@/app/auth/authSlice';
+
 let FAKE_USER = {
     id: 'user-1',
     email: '1@gmail.com',
@@ -24,7 +24,7 @@ const fakeLogin = async (credentials: { email: string; password: string }): Prom
                     name: FAKE_USER.name,
                 });
             } else {
-                reject(new Error('Invalid credentials')); // Отклоняем Promise при неверных данных
+                reject(new Error('Invalid credentials'));
             }
         }, 500)
     });
@@ -32,26 +32,25 @@ const fakeLogin = async (credentials: { email: string; password: string }): Prom
 
 export const authApi = createApi({
     reducerPath: 'authApi',
-    baseQuery: fetchBaseQuery({ baseUrl: '/' }), // baseQuery больше не нужен, но его нужно оставить
+    baseQuery: fetchBaseQuery({ baseUrl: '/' }),
     endpoints: (builder) => ({
         login: builder.mutation<IUser, { email: string; password: string }>({
             queryFn: async (credentials) => {
                 try {
-
-                    const user = await fakeLogin(credentials); // Вызываем вашу функцию fakeLogin
+                    const user = await fakeLogin(credentials);
                     if (user) {
-                        return { data: user }; // Возвращаем объект { data: user }
+                        return { data: user };
                     } else {
-                        return { error: { status: 400, data: { message: 'Invalid credentials' } } }; // Обработка ошибок
+                        return { error: { status: 400, data: { message: 'Invalid credentials' } } };
                     }
                 } catch (error: any) {
-                    return { error: { status: 500, data: { message: error.message } } }; // Обработка ошибок
+                    return { error: { status: 500, data: { message: error.message } } };
                 }
             },
 
         }),
-        logout: builder.mutation<void, void>({ //  void означает, что ничего не возвращаем
-            queryFn: async (_arg, { dispatch }) => { // dispatch доступен
+        logout: builder.mutation<void, void>({
+            queryFn: async (_arg, { dispatch }) => {
                 dispatch(logout());
                 return { data: undefined };
             },
@@ -59,9 +58,7 @@ export const authApi = createApi({
         updateProfile: builder.mutation<IUser, Partial<IUser>>({
             queryFn: async (userData, { dispatch }) => {
                 try {
-                    // Обновляем FAKE_USER
                     FAKE_USER = { ...FAKE_USER, ...userData };
-                    // Диспатчим profileUpdate
                     (dispatch as AppDispatch)(profileUpdate(FAKE_USER));
                     return { data: FAKE_USER };
                 } catch (error: any) {
@@ -72,4 +69,4 @@ export const authApi = createApi({
     }),
 });
 
-export const { useLoginMutation, useLogoutMutation } = authApi; // Экспортируем хуки
+export const { useLoginMutation, useLogoutMutation } = authApi;

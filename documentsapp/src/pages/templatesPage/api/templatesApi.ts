@@ -1,5 +1,5 @@
 import { createApi, fakeBaseQuery } from '@reduxjs/toolkit/query/react';
-import type { ITemplate } from '@/entities/template/model/types';
+import type { ITemplate } from '@/entities/template';
 
 let mockTemplates: ITemplate[] = [...Array(10)].map((_, i) => ({
     id: `tpl-${i}`,
@@ -41,9 +41,8 @@ export const templateApi = createApi({
         deleteTemplate: builder.mutation<boolean, string>({
             queryFn: (id) => {
                 try {
-                    // Создаем новый массив без удаляемого элемента
                     const updatedTemplates = mockTemplates.filter(t => t.id !== id);
-                    mockTemplates = updatedTemplates; // Только если mockTemplates let
+                    mockTemplates = updatedTemplates;
                     console.log(mockTemplates);
                     return { data: true };
 
@@ -55,22 +54,22 @@ export const templateApi = createApi({
         duplicateTemplate: builder.mutation<ITemplate, string>({
             queryFn: (id) => {
                 try {
-                    // Находим оригинальный шаблон
+
                     const original = mockTemplates.find(t => t.id === id);
                     if (!original) {
                         return { error: { status: 404, data: "Template not found" } };
                     }
                     const newId = String(Math.random().toString(36).slice(2, 9));
-                    // Создаем дубликат с новым ID и датами
+
                     const duplicate: ITemplate = {
                         ...original,
                         id: newId,
                         createdAt: new Date().toISOString(),
                         updatedAt: new Date().toISOString(),
-                        name: `${original.name} (copy)`, // Добавляем пометку
+                        name: `${original.name} (copy)`,
                     };
 
-                    mockTemplates = [...mockTemplates, duplicate]; // Иммутабельное добавление
+                    mockTemplates = [...mockTemplates, duplicate];
 
                     return { data: duplicate };
                 } catch (error) {

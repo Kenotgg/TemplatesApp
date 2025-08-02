@@ -1,2 +1,2 @@
-export { default as ProfilePage } from './ui/profilePage';
+export { default as ProfileInfo } from './ui/profilePage';
 export type { IUser } from './model/user';

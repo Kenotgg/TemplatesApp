@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react';
  * @param delay Задержка в миллисекундах.
  * @returns Дебаунсенное значение.
  */
+
 function useDebounce<T>(value: T, delay: number): T {
   const [debouncedValue, setDebouncedValue] = useState<T>(value);
 

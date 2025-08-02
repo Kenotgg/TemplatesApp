@@ -2,24 +2,18 @@ import React from "react";
 import { Link } from 'react-router-dom';
 import { Box, Stack, Avatar, Text, Icon, useBreakpointValue } from '@chakra-ui/react';
 import { AiFillHome } from "react-icons/ai";
-import { truncateText } from "@/shared/lib/helpers/trancuateText";
+
 interface HeaderProps {
     user: any | null;
 }
+
 export const Header: React.FC<HeaderProps> = ({ user }) => {
 
-    // Определяем значение justify-content на основе ширины экрана
-    const justifyContent = useBreakpointValue({
-        base: 'flex-end', // Для очень маленьких экранов - прижимаем к правому краю
-        sm: 'space-between', // Для маленьких экранов и больше - стандартное поведение
+    const showLogo = useBreakpointValue({
+        base: false,
+        sm: true,
     });
 
-    // Определяем, показывать ли логотип
-    const showLogo = useBreakpointValue({
-        base: false, // Скрываем на очень маленьких экранах
-        sm: true, // Показываем на маленьких экранах и больше
-    });
-    const nameText = truncateText(user.name, 15);
     return (
         <Box>
             {user ? (
@@ -33,7 +27,7 @@ export const Header: React.FC<HeaderProps> = ({ user }) => {
                         )}
                         <Link draggable={'false'} style={{ fontSize: 21, marginRight: 10 }} to='/profile'>
                             <Stack direction={"row"}>
-                                <Text fontWeight={'medium'} alignSelf={'center'}>{nameText}</Text>
+                                <Text fontWeight={'medium'} alignSelf={'center'}>{user.name}</Text>
                                 <Avatar></Avatar>
                             </Stack>
                         </Link>
@@ -46,3 +40,4 @@ export const Header: React.FC<HeaderProps> = ({ user }) => {
 
     );
 }
+export type { HeaderProps };

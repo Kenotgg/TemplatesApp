@@ -1,10 +1,11 @@
 import React from "react";
 import { useState } from "react";
-import { Stack, Box, Input, Spacer, Text, Divider, Select, Button, IconButton, useBreakpointValue } from "@chakra-ui/react";
+import { Stack, Box, Input, Text, Select,  useBreakpointValue } from "@chakra-ui/react";
 import DatePicker from 'react-datepicker';
+import customRuLocale from "@/app/locales/ruCapitalized";
 import 'react-datepicker/dist/react-datepicker.css';
 import '@/app/styles/datePicker.css';
-import customRuLocale from "@/app/locales/ruCapitalized";
+
 interface ITemplateFiltersProps {
     statusFilter: 'all' | 'черновик' | 'опубликован';
     onStatusFilterChange: (status: 'all' | 'черновик' | 'опубликован') => void;
@@ -76,7 +77,6 @@ export const TemplateFilters: React.FC<ITemplateFiltersProps> = ({
                                         
                                     >
                                     </DatePicker>
-                                    {/* <IconButton height={'35px'} width={'35px'} aria-label="Стереть введенную дату"><AiFillBackward></AiFillBackward></IconButton> */}
                                 </Stack>
 
                             </Stack>

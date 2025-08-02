@@ -1,6 +1,6 @@
-import type { ITemplate } from '@/entities/template/model/types';
+import type { ITemplate } from '@/entities/template';
 import { useForm } from 'react-hook-form';
-import React, { useState } from 'react';
+import React from 'react';
 import { Box, Button, Heading, Input, Select, Text, Textarea } from '@chakra-ui/react';
 
 interface TemplateEditFormProps {
@@ -9,7 +9,7 @@ interface TemplateEditFormProps {
     onCancel: () => void;
 }
 
-const TemplateEditForm: React.FC<TemplateEditFormProps> = ({ template, onSave, onCancel }) => {
+export const TemplateEditForm: React.FC<TemplateEditFormProps> = ({ template, onSave, onCancel }) => {
     const { register, handleSubmit, formState: { errors }, setValue } = useForm<ITemplate>({
         defaultValues: template,
     });
@@ -22,11 +22,6 @@ const TemplateEditForm: React.FC<TemplateEditFormProps> = ({ template, onSave, o
             setValue("author", template.author);
         }
     }, [template, setValue]);
-
-    const handleSave = (data: ITemplate) => {
-        console.log("Обновленные данные формы:", data);
-        onSave(data);
-    };
 
     return (
         <Box>
@@ -62,5 +57,3 @@ const TemplateEditForm: React.FC<TemplateEditFormProps> = ({ template, onSave, o
         </Box>
     )
 };
-
-export default TemplateEditForm;

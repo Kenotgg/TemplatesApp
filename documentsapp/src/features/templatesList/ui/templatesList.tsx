@@ -1,7 +1,6 @@
 import React from 'react';
 import { SimpleGrid } from '@chakra-ui/react';
-import type { ITemplate } from '@/entities/template/model/types';
-import { TemplateCard } from '@/entities/template';
+import { type ITemplate, TemplateCard} from '@/entities/template';
 
 interface TemplateListProps {
     templates: ITemplate[];
