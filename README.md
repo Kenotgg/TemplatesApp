@@ -1,5 +1,11 @@
 # TemplatesApp
-
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/741bb0bb-dd09-4bee-b161-be86393d0248" width="45%" alt="Десктопный вид">
+  <img src="https://github.com/user-attachments/assets/cbffb656-0523-4f78-876a-a50507e76bbd" width="20%" alt="Мобильный вид">
+</p>
+<p align="center">
+  <b>Десктопный вид</b> | <b>Мобильный вид</b>
+</p>
 TemplatesApp - это Single Page Application веб приложение написанное на React + TypeScript с соблюдением архитектурной метадологии Feature Sliced Design(FSD). Приложение предоставляет функционал для работы с документами посредством их просмотра, дублирования и удаления.
 
 ## Функционал
