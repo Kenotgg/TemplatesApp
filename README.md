@@ -1,6 +1,6 @@
-# DocumentsApp
+# TemplatesApp
 
-DocumentsApp - это Single Page Application веб приложение написанное на React + TypeScript с соблюдением архитектурной метадологии FSD(Feature Sliced Design), направленное просмотр и использования шаблонов документов для потребностей пользователя.
+TemplatesApp - это Single Page Application веб приложение написанное на React + TypeScript с соблюдением архитектурной метадологии Feature Sliced Design(FSD). Приложение предоставляет функционал для работы с документами посредством их просмотра, дублирования, удаления.
 
 ## Функционал
 - Авторизация
