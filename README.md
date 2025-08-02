@@ -102,10 +102,16 @@ export { TemplateDetailsInfo as default } from './ui/templateDetailsInfo';
 ```bash
 app → pages → features → entities → shared
 ```
-#### 5. Использование re-export (index.ts) ✅
-Все модули предоставляют доступ к функциональности через единую точку входа:
 
-#### 6. Гибкость исключений ⚠️
+#### 4. Однонаправленные зависимости
+Результат проверки при помощи команды:
+```bash
+npx madge --extensions ts,tsx --circular ./src
+```
+
+<img width="483" height="56" alt="image" src="https://github.com/user-attachments/assets/1ce210c6-8e68-4efb-ac15-62114bc232cd" />
+
+#### 4. Гибкость исключений ⚠️
 Допустимые исключения:
 - Прямой импорт authSlice в RTK Query (ограниченный scope).
 - Использование Chakra UI в компонентах (для MVP).
